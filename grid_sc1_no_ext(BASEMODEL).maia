@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maia:MAIA xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:maia="http://maia/1.0" xmlns:ontologicalStructure="http://maia/ontologicalStructure/1.0" xmlns:operationalStruct="http://maia/operationalStructure/1.0">
+  <constitutionalStructure>
+    <roles name="prosumer" entryCondition="//@ontologicalStructure/@conditions.0" physicalComponent="//@physicalStructure/@physicalComponent.0"/>
+    <roles name="consumer"/>
+  </constitutionalStructure>
+  <collectiveStructure>
+    <agent name="passiveCitizen" possibleRole="//@constitutionalStructure/@roles.1" property="//@ontologicalStructure/@properties.0"/>
+    <agent name="activeCitizen" possibleRole="//@constitutionalStructure/@roles.0" property="//@ontologicalStructure/@properties.1 //@ontologicalStructure/@properties.0 //@ontologicalStructure/@properties.10"/>
+    <agent name="gasCoalPowerPlantCompany" physicalComponent="//@physicalStructure/@physicalComponent.3"/>
+    <agent name="nuclearPowerPlantCompany" physicalComponent="//@physicalStructure/@physicalComponent.2"/>
+    <agent name="AllSector" property="//@ontologicalStructure/@properties.6 //@ontologicalStructure/@properties.5"/>
+  </collectiveStructure>
+  <physicalStructure>
+    <physicalComponent name="SolarPanelSet" type="fenced" property="//@ontologicalStructure/@properties.2"/>
+    <physicalComponent name="Grid" property="//@ontologicalStructure/@properties.3 //@ontologicalStructure/@properties.4 //@ontologicalStructure/@properties.9"/>
+    <physicalComponent name="NuclearPlant" type="fenced" property="//@ontologicalStructure/@properties.7"/>
+    <physicalComponent name="CombinedPowerPlant" type="fenced" property="//@ontologicalStructure/@properties.8"/>
+  </physicalStructure>
+  <operationalStructure>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="useEnergyAsConsumer" postCondition="//@ontologicalStructure/@conditions.2" preCondition="//@ontologicalStructure/@conditions.0" perfomer="//@constitutionalStructure/@roles.1"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="generateEnergyAsProsumer" postCondition="//@ontologicalStructure/@conditions.3" preCondition="//@ontologicalStructure/@conditions.0" perfomer="//@constitutionalStructure/@roles.0"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="useEnergyAsProsumer" postCondition="//@ontologicalStructure/@conditions.4" preCondition="//@ontologicalStructure/@conditions.0" perfomer="//@constitutionalStructure/@roles.0"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="monitorDistribution" postCondition="//@ontologicalStructure/@conditions.5" preCondition="//@ontologicalStructure/@conditions.11" perfomer="//@physicalStructure/@physicalComponent.1"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="supplyEnergyAsNuclearPowerPlant" postCondition="//@ontologicalStructure/@conditions.6" perfomer="//@collectiveStructure/@agent.3"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="useEnergyAllSectors" postCondition="//@ontologicalStructure/@conditions.7" preCondition="//@ontologicalStructure/@conditions.12" perfomer="//@collectiveStructure/@agent.4" postConditionNotDo="//@ontologicalStructure/@conditions.13"/>
+    <actionPlans xsi:type="operationalStruct:EntityAction" name="followDemand" postCondition="//@ontologicalStructure/@conditions.9" preCondition="//@ontologicalStructure/@conditions.8" perfomer="//@collectiveStructure/@agent.2" postConditionNotDo="//@ontologicalStructure/@conditions.10"/>
+  </operationalStructure>
+  <ontologicalStructure>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="default" statement="true"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="generationProcessPP" statement="Grid.setDailyAvailableEnergy(powerplantCompany.getPowerplant().getDailyPowerplantOutput());"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="consumeEnergyWithoutSolar" statement="Grid.CurrentAvailableEnergy = Grid.CurrentAvailableEnergy - passiveCitizen.getDailyCitizenElectricityUsage();"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="generationProcessSolar" statement="activeCitizen.setDailyElectricityGeneration(prosumer.getSolarPanelSet().getDailySolarOuput());"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="consumeEnergyWithSolar" statement="Grid.CurrentAvailableEnergy = Grid.CurrentAvailableEnergy - (activeCitizen.getDailyCitizenElectricityUsage() - activeCitizen.getDailyElectricityGeneration()) ; activeCitizen.setDailyDemandBalance(activeCitizen.getDailyElectricityGeneration()- activeCitizen.getDailyCitizenElectricityUsage()); "/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="monitor" statement="Grid.AccumulatedOverSupply += Grid.CurrentAvailableEnergy; "/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="generationProcessNuclear" statement="Grid.CurrentAvailableEnergy = nuclearPowerPlantCompany.getNuclearPlant().getNuclearOutput();"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="consumeEnergyAllSectorWeekend" statement="Grid.CurrentAvailableEnergy = Grid.CurrentAvailableEnergy - (AllSector.getDailyComElectricityUsage());AllSector.setDaysOfEnergyUse(AllSector.getDaysOfEnergyUse()+1); if (AllSector.getDaysOfEnergyUse() >= 7){AllSector.setDaysOfEnergyUse(0);};"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="ifGridToLow" statement="Grid.CurrentAvailableEnergy &lt;= 0.0"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="supplyToGrid" statement="gasCoalPowerPlantCompany.getCombinedPowerPlant().setCombinedOutput(838.11);Grid.NetBalance = Grid.CurrentAvailableEnergy; gasCoalPowerPlantCompany.getCombinedPowerPlant().setCombinedOutput(gasCoalPowerPlantCompany.getCombinedPowerPlant().getCombinedOutput()-Grid.CurrentAvailableEnergy); Grid.CurrentAvailableEnergy = 0; "/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="generationProcessGasCoal" statement="gasCoalPowerPlantCompany.getCombinedPowerPlant().setCombinedOutput(838.11); Grid.NetBalance = Grid.CurrentAvailableEnergy; "/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="IfGridNotZero" statement="Grid.CurrentAvailableEnergy > 0.0"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="ifWeekend" statement="AllSector.getDaysOfEnergyUse() >=5"/>
+    <conditions xsi:type="ontologicalStructure:NaturalLangCondition" label="ConsumeEnergyAllSector" statement="Grid.CurrentAvailableEnergy = Grid.CurrentAvailableEnergy - AllSector.getDailyComElectricityUsage(); AllSector.setDaysOfEnergyUse(AllSector.getDaysOfEnergyUse() + 1);"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DailyCitizenElectricityUsage" value="12.0"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DailyElectricityGeneration"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DailySolarOuput" value="14.0"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="CurrentAvailableEnergy"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="NetBalance"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DaysOfEnergyUse"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DailyComElectricityUsage" value="1719.9"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="NuclearOutput" value="1891.89"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="CombinedOutput" value="840.0"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="AccumulatedOverSupply"/>
+    <properties xsi:type="ontologicalStructure:NumberProperty" label="DailyDemandBalance"/>
+  </ontologicalStructure>
+</maia:MAIA>
