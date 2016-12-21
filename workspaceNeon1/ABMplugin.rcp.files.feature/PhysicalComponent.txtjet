@@ -1,0 +1,9 @@
+<%@ jet package="JETTemplates"  class="PhysicalComponent"  %>
+
+package physicalStructure;
+
+public abstract class  PhysicalComponent {
+	int id;
+	String type; //fenced or open 
+}
+

@@ -1,0 +1,826 @@
+package produceCode;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.LibraryLocation;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
+
+import JETTemplates.Util;
+import maia.MAIA;
+import maia.MaiaPackage;
+import maia.collectiveStructure.Agent;
+import maia.collectiveStructure.MCDA;
+import maia.constitutionalStructure.Role;
+import maia.ontologicalStructure.Property;
+import maia.operationalStructure.Plan;
+import maia.physicalStructure.PhysicalComponent;
+import maia.physicalStructure.ResourceType;
+import runSimulation.RunSimulationShowWizard;
+
+public class ProduceCodeHandler extends Wizard {
+
+	protected ProduceCodePage pcPage;
+	protected MainSimulationDialog mn;
+
+	protected String projectName;
+	protected String maiaPath;
+	protected static String logOutput;
+
+	public ProduceCodeHandler() {
+		super();
+		setNeedsProgressMonitor(true);
+	}
+
+	@Override
+	public String getWindowTitle() {
+		return "Produce code";
+	}
+
+	@Override
+	public void addPages() {
+		pcPage = new ProduceCodePage();
+
+		addPage(pcPage);
+
+	}
+
+	@Override
+	public boolean performFinish() {
+		// set monitor to track progress
+		NullProgressMonitor pm = new NullProgressMonitor();
+		IRunnableWithProgress op = new IRunnableWithProgress() {
+			public void run(IProgressMonitor mainMonitor) throws InvocationTargetException, InterruptedException {
+				// inside of the monitor do everything
+				mainMonitor.beginTask("Please be patient... code is generated...", IProgressMonitor.UNKNOWN);
+				for (int total = 0; total < 100000000; total += 1) {
+
+					mainMonitor.worked(1);
+					if (total == 100000000 / 2)
+						mainMonitor.subTask("");
+
+				}
+				mainMonitor.done();
+
+			}
+		};
+		try {
+			getContainer().run(true, true, op);
+		} catch (InvocationTargetException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		projectName = pcPage.getText1();
+		maiaPath = pcPage.getPath();
+
+		// create empty project
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = root.getProject(projectName);
+		try {
+			project.create(pm);
+			project.open(pm);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			// set Java nature
+			IProjectDescription desc = project.getDescription();
+			desc.setNatureIds(new String[] { JavaCore.NATURE_ID });
+			project.setDescription(desc, pm);
+			// set output folder for classess (bin folder)
+			IJavaProject javaProj = JavaCore.create(project);
+			IFolder binDir = project.getFolder("bin");
+			IPath binPath = binDir.getFullPath();
+			javaProj.setOutputLocation(binPath, null);
+			//ADD JFREE CHART LIBRARIES
+			String common_filename = "jcommon-1.0.23.jar";
+			String jfreechart_filename = "jfreechart-1.0.19.jar";
+			InputStream com;
+			InputStream jfr;
+			com = new BufferedInputStream(new FileInputStream(common_filename));
+			   jfr = new BufferedInputStream(new FileInputStream(jfreechart_filename));
+			   IFile common_file = project.getFile(common_filename);
+			   IFile jfreechart_file = project.getFile(jfreechart_filename);
+			   common_file.create(com, false, null);
+			   jfreechart_file.create(jfr, false, null);
+			   IPath common_path = common_file.getFullPath();
+			   IPath jfr_path = jfreechart_file.getFullPath(); 
+			// set JRE and add additional libraries EMF and MAIA
+			Set<IClasspathEntry> entries = new HashSet<IClasspathEntry>();
+
+			entries.addAll(Arrays.asList(javaProj.getRawClasspath()));
+
+			IVMInstall vmInstall = JavaRuntime.getDefaultVMInstall();
+
+			LibraryLocation[] locations = JavaRuntime.getLibraryLocations(vmInstall);
+
+			for (LibraryLocation element : locations) {
+
+				entries.add(JavaCore.newLibraryEntry(element.getSystemLibraryPath(), null, null));
+				   entries.add(JavaCore.newLibraryEntry(common_path, null, null));
+				   entries.add(JavaCore.newLibraryEntry(jfr_path, null, null));
+			}
+			javaProj.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), pm);
+
+			// entry.java is converted now to a function inside this class to
+			// construct output
+			loadModel(maiaPath, project, mn);
+			// catch exception during Java nature and bin folder for classess
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(
+					"Couldn't create any folder in the application. Please check permission settings for app or analyze stacktrace.");
+			// catch exception during loading of the model
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Couldn't load model, please make sure the .maia file has correct contents.");
+		}
+		return true;
+	}
+
+	public static void loadModel(String modelFile, IProject genProject, MainSimulationDialog pm) throws IOException {
+
+		// Obtain a new resource set
+
+		// MaiaFactoryImpl.init();
+		// resSet.getPackageRegistry().put("http://maia/1.0",
+		// MaiaFactoryImpl.eINSTANCE.getEPackage());
+		ResourceSet resSet = new ResourceSetImpl();
+		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
+				// Resource.Factory.Registry.DEFAULT_EXTENSION, new
+				// XMIResourceFactoryImpl());
+				"xml", new EcoreResourceFactoryImpl());
+
+		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("maia", new EcoreResourceFactoryImpl());
+
+		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xml",
+		// new XMIResourceFactoryImpl());
+		MaiaPackage.eINSTANCE.eClass();
+		// Get the resource
+		URI fileURI = URI.createFileURI(new File(modelFile).getAbsolutePath());
+
+		// MaiaFactory m = MaiaFactoryImpl.eINSTANCE;
+		// m.createMAIA();
+		Resource resource = resSet.getResource(fileURI, true);
+
+		// Get the first model element and cast it to the right type, in my
+		// example everything is hierarchical included in this first node
+		MAIA myObj = (MAIA) resource.getContents().get(0);
+		EmitCode(myObj, genProject, pm);
+
+	}
+
+	// class that read the .maia file and generated code according to JET
+	private static void EmitCode(MAIA maia, IProject genProject, MainSimulationDialog pm) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		logOutput = "***Started generating at: " + dateFormat.format(date) + "***\n";
+		logOutput = logOutput
+				+ "***Mind that all .maia file entry parameters are verified.***\n***If information is incomplete some code may not be generated.***\n***In case of missing code please open the .maia file with EMF generic editor and check for exclamation marks.***\n***Alternatively as this is an alpha release: If your .maia is correctly configured, but still returns an error move the file outside of the workbench folder via any fileExplorer.******\n***Most cases will be due to unspecified data.***";
+		logOutput = logOutput + "\n Creating files....\n";
+		// output Abstract classess
+		output(new JETTemplates.Agent().generate(null), "Agent", "collectiveStructure", genProject, pm);
+
+		output(new JETTemplates.DecisionCriterion().generate(null), "DecisionCriterion", "collectiveStructure",
+				genProject, pm);
+		output(new JETTemplates.EntityAction().generate(null), "EntityAction", "operationalStructure", genProject, pm);
+		output(new JETTemplates.Institution().generate(null), "Institution", "constitutionalStructure", genProject, pm);
+		output(new JETTemplates.Objective().generate(null), "Objective", "constitutionalStructure", genProject, pm);
+		output(new JETTemplates.Role().generate(null), "Role", "constitutionalStructure", genProject, pm);
+		output(new JETTemplates.PhysicalComponent().generate(null), "PhysicalComponent", "physicalStructure",
+				genProject, pm);
+		output(new JETTemplates.Ticks().generate(null), "Ticks", "operationalStructure", genProject, pm);
+		logOutput = logOutput + "Abstract classes successfully generated.\n";
+		// output actual instances > This is trickier as the class name is
+		// generated on the fly
+		try {
+			EList<Agent> agentTest = maia.getCollectiveStructure().getAgent();
+			if (agentTest.isEmpty()) {
+				throw new Exception();
+			}
+			for (Agent agent : maia.getCollectiveStructure().getAgent()) {
+				System.out.println(agent);
+
+				output(new JETTemplates.Agent_instance().generate(agent),
+						new JETTemplates.Agent_instance_genHelp().generate(agent), "collectiveStructure", genProject,
+						pm);
+
+				// for (MCDA decisionCriteria : agent.getDecision())
+				// {
+				// output(new
+				// JETTemplates.DecisionCritria_instances().generate(new
+				// Object[] {decisionCriteria, agent}), "p");
+				// }
+			}
+			logOutput = logOutput + "Agent instance classes successfully generated.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Agent instances could not be generated. Please check your .maia file. \n";
+
+		}
+		try {
+			EList<PhysicalComponent> phyTest = maia.getPhysicalStructure().getPhysicalComponent();
+			if (phyTest.isEmpty()) {
+				throw new Exception();
+			}
+			for (PhysicalComponent comp : maia.getPhysicalStructure().getPhysicalComponent()) {
+				output(new JETTemplates.PhysicalComponent_instance().generate(comp),
+						new JETTemplates.PhysicalComponent_instance_genHelp().generate(comp), "physicalStructure",
+						genProject, pm);
+			}
+			logOutput = logOutput + "PhysicalComponent instance classes successfully generated.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "PhysicalComponent instances could not be generated. Please check your .maia file. \n";
+		}
+
+		try {
+			EList<Plan> planTest = maia.getOperationalStructure().getActionPlans();
+			if (planTest.isEmpty()) {
+				throw new Exception();
+			}
+
+			Map<String, Object> agentsForEntity = new HashMap<String, Object>();
+			for (Agent agent : maia.getCollectiveStructure().getAgent()) {
+				agentsForEntity.put(agent.getName(), agent);
+
+			}
+
+			Map<String, Map<String, Object>> outerMapEnt = new HashMap<String, Map<String, Object>>();
+			outerMapEnt.put("myAgents", agentsForEntity);
+
+			for (Plan test : maia.getOperationalStructure().getActionPlans()) {
+				output(new JETTemplates.EntityAction_instance().generate(test, outerMapEnt),
+						new JETTemplates.EntityAction_instance_genHelp().generate(test), "operationalStructure",
+						genProject, pm);
+
+			}
+
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "EntityAction instances could not be generated. Please check your .maia file. \n";
+		}
+		// The objective creation is special in the sense that it needs the
+		// Agent class
+		// an agent instance can contain multiple roles in which each of these
+		// roles can have an objective.
+		// Hence the string returned is in essence a hashMap (dictionary)
+		// So it can be easily parsed.
+		try {
+			EList<Agent> agTest = maia.getCollectiveStructure().getAgent();
+			if (agTest.isEmpty()) {
+				throw new Exception();
+			}
+
+			for (Agent objective : maia.getCollectiveStructure().getAgent()) {
+
+				String hashmap = output(new JETTemplates.Objective_instances().generate(objective));
+				// get the hashmap strings
+				String d = hashmap.replaceAll("\\s", "");
+				// System.out.println(test);
+				// use properties to restore the map
+				Properties props = new Properties();
+				try {
+					props.load(new StringReader(d.substring(1, d.length() - 1).replace(",", "\n")));
+
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					logOutput = logOutput + e1.toString();
+
+				}
+
+				// restore the original Hashmap completely
+				Map<String, List> map2 = new HashMap<String, List>();
+				for (Map.Entry<Object, Object> e : props.entrySet()) {
+					String stringList = (String) e.getValue();
+					// System.out.println(stringList);
+					List<String> myList = Arrays.asList(stringList.split("#"));
+					// System.out.println(myList);
+					map2.put((String) e.getKey(), myList);
+				}
+				// get all values and start making files with them
+				for (java.util.Map.Entry<String, List> entry : map2.entrySet()) {
+					String agentName = (String) entry.getValue().get(0);
+					String lessformula = (String) entry.getValue().get(1);
+					lessformula = lessformula.replaceAll("@", " ");
+					if (lessformula.equals("null")) {
+						lessformula = "";
+					}
+					String equalFormula = (String) entry.getValue().get(2);
+					equalFormula = equalFormula.replaceAll("@", " ");
+					if (equalFormula.equals("null")) {
+						equalFormula = "";
+					}
+					String ANDformula = (String) entry.getValue().get(3);
+					ANDformula = ANDformula.replaceAll("@", " ");
+					if (ANDformula.equals("null")) {
+						ANDformula = "";
+					}
+					String ORformula = (String) entry.getValue().get(4);
+					ORformula = ORformula.replaceAll("@", " ");
+					if (ORformula.equals("null")) {
+						ORformula = "";
+					}
+					String moreEqformula = (String) entry.getValue().get(5);
+					moreEqformula = moreEqformula.replaceAll("@", " ");
+					if (moreEqformula.equals("null")) {
+
+						moreEqformula = "";
+					}
+
+					String objectiveOfRole = entry.getKey();
+					String code = constructCode2(objectiveOfRole, agentName, lessformula, equalFormula, ANDformula,
+							ORformula, moreEqformula);
+					output(code, Util.Capitalize(objectiveOfRole), "constitutionalStructure", genProject, pm);
+
+				}
+			} // END OF OBJECTIVE INSTANCES
+			logOutput = logOutput + "Objective instance classes successfully generated.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Objective instances could not be generated. Please check your .maia file. \n";
+		}
+		// The role creation is special in the sense that it needs the Agent
+		// class
+		// an agent instance can contain multiple roles.
+		// Hence the string returned is in essence a hashMap (dictionary)
+		// So it can be easily parsed.
+		List<String> allRoles = new ArrayList<String>();
+		try {
+
+			EList<Agent> agTest = maia.getCollectiveStructure().getAgent();
+			if (agTest.isEmpty()) {
+				throw new Exception();
+			}
+
+			for (Agent role : maia.getCollectiveStructure().getAgent()) {
+				String test = output(new JETTemplates.Role_instances().generate(role));
+				// get the hashmap strings
+				String d = test.replaceAll("\\s", "");
+				// System.out.println(test);
+				// use properties to restore the map
+				Properties props = new Properties();
+				try {
+					props.load(new StringReader(d.substring(1, d.length() - 1).replace(",", "\n")));
+
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					logOutput = logOutput + e1;
+				}
+
+				// restore the original Hashmap completely
+				Map<String, List> map2 = new HashMap<String, List>();
+				for (Map.Entry<Object, Object> e : props.entrySet()) {
+					String stringList = (String) e.getValue();
+					// System.out.println(stringList);
+					List<String> myList = Arrays.asList(stringList.split("#"));
+					// System.out.println(myList);
+					map2.put((String) e.getKey(), myList);
+				}
+
+				// get all values and start making files with them
+				for (java.util.Map.Entry<String, List> entry : map2.entrySet()) {
+					String agentName = (String) entry.getValue().get(0);
+					String lessformula = (String) entry.getValue().get(1);
+					lessformula = lessformula.replaceAll("@", " ");
+					if (lessformula.equals("null")) {
+						lessformula = "";
+					}
+					String equalFormula = (String) entry.getValue().get(2);
+					equalFormula = equalFormula.replaceAll("@", " ");
+					if (equalFormula.equals("null")) {
+						equalFormula = "";
+					}
+					String ANDformula = (String) entry.getValue().get(3);
+					ANDformula = ANDformula.replaceAll("@", " ");
+					if (ANDformula.equals("null")) {
+						ANDformula = "";
+					}
+					String ORformula = (String) entry.getValue().get(4);
+					ORformula = ORformula.replaceAll("@", " ");
+					if (ORformula.equals("null")) {
+						ORformula = "";
+					}
+					String moreEqformula = (String) entry.getValue().get(5);
+					moreEqformula = moreEqformula.replaceAll("@", " ");
+					if (moreEqformula.equals("null")) {
+
+						moreEqformula = "";
+					}
+					String ag_role = entry.getKey();
+					String code = constructCode(ag_role, agentName, lessformula, equalFormula, ANDformula, ORformula,
+							moreEqformula, maia);
+					output(code, Util.Capitalize(ag_role), "constitutionalStructure", genProject, pm);
+				}
+
+			} // END of ROLE INSTANCES
+			logOutput = logOutput + "Role instance classes successfully generated.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Role instances could not be generated. Please check your .maia file. \n";
+		}
+		// main simulation
+		// We need to get all Agent_instances and put them in an arrayList for
+		// main simulation
+		// Therefore a hashmap might be suitable
+		Map<String, Object> agentHashmap = new HashMap<String, Object>();
+		List<String> agentNames = new ArrayList<String>();
+		List<String> phyNames = new ArrayList<String>();
+		// similarly we need to get physical components
+		Map<String, Object> phyHashmap = new HashMap<String, Object>();
+		for (PhysicalComponent phy : maia.getPhysicalStructure().getPhysicalComponent()) {
+			phyHashmap.put(phy.getName(), phy);
+
+		}
+		try {
+			EList<Agent> agTest = maia.getCollectiveStructure().getAgent();
+			if (agTest.isEmpty()) {
+				throw new Exception();
+			}
+			for (Agent agent : maia.getCollectiveStructure().getAgent()) {
+				agentHashmap.put(agent.getName(), agent);
+				agentNames.add(agent.getName());
+			}
+			logOutput = logOutput
+					+ "Agent instances successfully used for list creation in which the messageDialog is based on.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Agent instances could not be used for list creation. Please check your .maia file. \n";
+		}
+		// do it again for physical components
+		try {
+			EList<PhysicalComponent> comTest = maia.getPhysicalStructure().getPhysicalComponent();
+			if (comTest.isEmpty()) {
+				throw new Exception();
+			}
+			for (PhysicalComponent phy : maia.getPhysicalStructure().getPhysicalComponent()) {
+				for (Plan pl : maia.getOperationalStructure().getActionPlans()) {
+					// try to cast to EntityAction
+					if (pl instanceof maia.operationalStructure.EntityAction) {
+						maia.operationalStructure.EntityAction entityAction = (maia.operationalStructure.EntityAction) pl;
+						if (entityAction != null) {
+							try {
+								// if an entityAction matches the physical
+								// component use it for the GUI general tab
+								if (entityAction.getPerfomer().getName().equals(phy.getName())) {
+									// if it is marked "OPEN"
+									if (phy.getType() == ResourceType.OPEN) {
+										// add to the phy hashmap for dynamic
+										// gui creation
+										phyNames.add(phy.getName());
+									}
+
+								}
+							} catch (Exception e) {
+
+							}
+						}
+					}
+				}
+
+			}
+			logOutput = logOutput
+					+ "Physical instances successfully used for list creation in which the messageDialog is based on.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Physical instances could not be used for list creation. Please check your .maia file. \n";
+		}
+
+		// The same accounts for action plans that we need, so lets store them
+		Map<String, Object> plansHashmap = new HashMap<String, Object>();
+
+		try {
+			EList<Plan> planTest = maia.getOperationalStructure().getActionPlans();
+			if (planTest.isEmpty()) {
+				throw new Exception();
+
+			}
+			for (Plan plans : maia.getOperationalStructure().getActionPlans()) { // cast
+																					// into
+																					// entityActions
+				if (plans instanceof maia.operationalStructure.EntityAction) {
+					maia.operationalStructure.EntityAction entityAction = (maia.operationalStructure.EntityAction) plans;
+					if (entityAction != null) {
+						plansHashmap.put(entityAction.getName(), entityAction);
+					}
+				}
+				//
+			}
+			logOutput = logOutput + "Plan instances successfully used for list creation.\n";
+		} catch (Exception e) {
+			logOutput = logOutput + e + "\n"
+					+ "Plan instances could not be generated. Please check your .maia file. \n";
+		}
+
+		// create messageDialog and create gui for number of ticks and available
+		// agents
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+
+		MainSimulationDialog t = new MainSimulationDialog(shell);
+		t.setAgentObjects(agentHashmap);
+		t.setAgents(agentNames);
+		t.setPlanObjects(plansHashmap);
+		t.setPhyObjects(phyHashmap);
+
+		t.open();
+
+		// recieve any input data from the messsageDialog
+		Map<String, Object> ticks = new HashMap<String, Object>();
+		Map<String, Object> agentData = new HashMap<String, Object>();
+		Map<String, Object> phyData = new HashMap<String, Object>();
+		Map<String, Object> attData = new HashMap<String, Object>();
+		Map<String, Object> attPCData = new HashMap<String, Object>();
+		Map<String, Object> seqData = new HashMap<String, Object>();
+		Map<String, Object> seedData = new HashMap<String, Object>();
+		Map<String, Object> vizData = new HashMap<String, Object>();
+		ticks.put("numberOfTicks", t.getnumberOfTicks());
+		Map<String, Integer> messData = t.getAgentData();
+		Map<String, List<Double>> attrData = t.getattrData();
+		Map<String, List<Double>> attrPCData = t.getattrPCData();
+		// make sequence data ordered
+		Map<String, Integer> messData3 = t.getseqData();
+
+		Map<Integer, Boolean> messData4 = t.getseedData();
+		// start parsing through the agent hashmap
+		Iterator it = messData.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			String agentName = pair.getKey().toString();
+			agentData.put(agentName, pair.getValue());
+		}
+		Iterator it3 = attrData.entrySet().iterator();
+		while (it3.hasNext()) {
+			Map.Entry pair = (Map.Entry) it3.next();
+			String agentName = pair.getKey().toString();
+			attData.put(agentName, pair.getValue());
+		}
+		Iterator itPC = attrPCData.entrySet().iterator();
+		while (itPC.hasNext()) {
+			Map.Entry pair = (Map.Entry) itPC.next();
+			String akey = pair.getKey().toString();
+			attPCData.put(akey, pair.getValue());
+		}
+
+		// start parsing through the phy hashmap
+		Iterator it4 = messData3.entrySet().iterator();
+		while (it4.hasNext()) {
+			Map.Entry pair2 = (Map.Entry) it4.next();
+			String seq = pair2.getKey().toString();
+			System.out.println(seq);
+			seqData.put(seq, pair2.getValue());
+		}
+		// start parsing through
+		Iterator it5 = messData4.entrySet().iterator();
+		while (it5.hasNext()) {
+			Map.Entry pair2 = (Map.Entry) it5.next();
+			String seed = pair2.getKey().toString();
+			seedData.put(seed, pair2.getValue());
+		}
+		Iterator it6 = phyHashmap.entrySet().iterator();
+		while (it6.hasNext()) {
+			Map.Entry pair2 = (Map.Entry) it6.next();
+			String seed = pair2.getKey().toString();
+			phyData.put(seed, pair2.getValue());
+		}
+		//visualization dictionary is of type STRING,String > should be STring,Object to send it to mainsimulation class
+		Iterator it7 = t.getvizData().entrySet().iterator();
+		while (it7.hasNext()) {
+			Map.Entry pair2 = (Map.Entry) it7.next();
+			String seed = pair2.getKey().toString();
+			vizData.put(seed, pair2.getValue());
+		}
+
+		// Now that we have the agent hashmap and plans hashmap for the main
+		// simulation class we want to pass that in
+		// ..at the point of generation of that class.
+		// therefore we create an nested hashmap as the generate method only
+		// takes one argument
+		Map<String, Map<String, Object>> outerMap = new HashMap<String, Map<String, Object>>();
+		outerMap.put("myAgents", agentHashmap);
+		outerMap.put("myPlans", plansHashmap);
+		outerMap.put("ticks", ticks);
+		outerMap.put("agentData", agentData);
+		outerMap.put("attrPC", attPCData);
+		outerMap.put("attr", attData);
+		outerMap.put("sequencePlan", seqData);
+		outerMap.put("seedData", seedData);
+		outerMap.put("phyData", phyData);
+		outerMap.put("vizData", vizData);
+
+		output(new JETTemplates.MainSimulation().generate(outerMap), "SimulationRun", "operational", genProject, pm);
+
+		// create last evaluativeStructure folder
+		createEvaluativeStructure(genProject, pm);
+		// construct CSV class thats needed
+		output(new JETTemplates.CSVUtils().generate(null), "CSVUtils", "evaluativeStructure", genProject, pm);
+		logOutput = logOutput + "***Ended generating at: " + dateFormat.format(date) + "***\n";
+		output(logOutput, "log.txt", "log", genProject, pm);
+		// output(new JETTemplates.MainSimulation().generate(agent_arrayList),
+		// "SimulationRun", "operational", genProject, pm);
+
+	}
+
+	private static void createEvaluativeStructure(IProject genProject, MainSimulationDialog pm) {
+		// TODO Auto-generated method stub
+		IFolder outputFolder = genProject.getFolder("evaluativeStructure");
+		if (!outputFolder.exists())
+			try {
+				outputFolder.create(IResource.NONE, true, null);
+			} catch (CoreException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("Folder could not get generated. Check stackTrace.");
+				logOutput = logOutput + "Folder could not get generated. Check stackTrace. \n";
+			}
+
+	}
+
+	private static String output(String code) {
+		return code;
+	}
+
+	private static String constructCode(String agentRole, String agentName, String lessformula, String equalFormula,
+			String ANDformula, String ORformula, String moreEqformula, MAIA maia) {
+		String header = "package constitutionalStructure;\n" + "import collectiveStructure."
+				+ Util.Capitalize(agentName) + ";\nimport physicalStructure.*;\n" + "public class "
+				+ Util.Capitalize(agentRole) + " extends Role{\n";
+		String entryCondition = "";
+		String conditionStatements = "";
+		String code = header;
+		// String attr = "";
+		for (Role agent : maia.getConstitutionalStructure().getRoles()) {
+			if (agent.getName().equals(agentRole)) {
+				for (PhysicalComponent pc : agent.getPhysicalComponent()) {
+				
+					
+							if (pc.getType() == ResourceType.FENCED) {
+								code += "public " + Util.Capitalize(pc.getName()) + " " + pc.getName() + " = new "
+										+ Util.Capitalize(pc.getName() + "();") + "\npublic "
+										+ Util.Capitalize(pc.getName()) + " get" + Util.Capitalize(pc.getName())
+										+ "(){\n" + "\nreturn " + pc.getName() + ";\n}\n" + "public void set"
+										+ pc.getName() + "(" + Util.Capitalize(pc.getName()) + " value){\n"
+
+										+ pc.getName() + " = value;\n}\n";
+							
+						
+					}
+				}
+			}
+		}
+
+		/*
+		 * public <%=Util.Capitalize(pCom.getName())%> <%=pCom.getName()%> = new
+		 * <%=Util.Capitalize(pCom.getName())%>(); public
+		 * <%=Util.Capitalize(pCom.getName())%>
+		 * get<%=Util.Capitalize(pCom.getName())%>(){ return
+		 * <%=pCom.getName()%>; }
+		 * 
+		 * public void
+		 * set<%=pCom.getName()%>(<%=Util.Capitalize(pCom.getName())%> value){
+		 * <%=pCom.getName()%> = value; }
+		 */
+		// if there is no entryCondition, set default
+		if (lessformula.equals("") && equalFormula.equals("") && ANDformula.equals("") && ORformula.equals("")
+				&& moreEqformula.equals("")) {
+			entryCondition = "\npublic static boolean entryCondition(" + Util.Capitalize(agentName) + " " + agentName
+					+ "Agent" + "){\n return true;}";
+			code += entryCondition + "\t}";
+		} else {
+			entryCondition = "\npublic static boolean entryCondition(" + Util.Capitalize(agentName) + " " + agentName
+					+ "Agent" + "){\n";
+			conditionStatements = lessformula + "\n" + equalFormula + "\n" + ANDformula + "\n" + ORformula + "\n"
+					+ moreEqformula + "\n";
+			code += entryCondition + conditionStatements + "}\t}";
+		}
+
+		return code;
+	}
+
+	private static String constructCode2(String objective, String agentName, String lessformula, String equalFormula,
+			String ANDformula, String ORformula, String moreEqformula) {
+		String header = "package constitutionalStructure;\n" + "import collectiveStructure."
+				+ Util.Capitalize(agentName) + ";\n" + "public class " + Util.Capitalize(objective)
+				+ " extends Objective{\n";
+		String entryCondition = "";
+		String conditionStatements = "";
+		String code = "";
+		// if there is no entryCondition, set default
+		if (lessformula.equals("") && equalFormula.equals("") && ANDformula.equals("") && ORformula.equals("")
+				&& moreEqformula.equals("")) {
+			entryCondition = "public boolean objectiveMet(" + Util.Capitalize(agentName) + " " + agentName
+					+ "){\n return true;}";
+			code = header + entryCondition + "\t}";
+
+		} else {
+			entryCondition = "public boolean objectiveMet(" + Util.Capitalize(agentName) + " " + agentName + "){\n";
+			conditionStatements = lessformula + "\n" + equalFormula + "\n" + ANDformula + "\n" + ORformula + "\n"
+					+ moreEqformula + "\n";
+			code = header + entryCondition + conditionStatements + "}\t}";
+		}
+
+		System.out.println(code);
+		return code;
+	}
+
+	private static void output(String code, String nameOfFile, String maiaStructure, IProject genProject,
+			MainSimulationDialog pm) {
+		// for each maiaStructure, create a folder , while passing in code
+		// IFolder structureFolder = srcFolder.getFolder(maiaStructure);
+		// create for each nameOfFile a file
+		IFolder outputFolder = genProject.getFolder(maiaStructure);
+		if (!outputFolder.exists())
+			try {
+				outputFolder.create(IResource.NONE, true, null);
+			} catch (CoreException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("Folder could not get generated. Check stackTrace.");
+				logOutput = logOutput + "Folder could not get generated. Check stackTrace. \n";
+			}
+
+		IFile outputFile = outputFolder.getFile(nameOfFile + ".java");
+		if (nameOfFile.equals("log.txt")) {
+			outputFile = outputFolder.getFile(nameOfFile);
+		}
+		byte[] actualCode = code.getBytes();
+		InputStream source = new ByteArrayInputStream(actualCode);
+
+		try {
+			outputFile.create(source, IResource.NONE, new NullProgressMonitor());
+
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("File could not get generated. Check stackTrace.");
+			logOutput = logOutput + "File could not get generated. Check stackTrace. \n";
+		}
+	}
+}

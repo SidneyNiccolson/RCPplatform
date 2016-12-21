@@ -1,0 +1,14 @@
+<%@ jet package="JETTemplates" imports="maia.physicalStructure.* maia.ontologicalStructure.*" class="PhysicalComponent_instance"  %>
+package physicalStructure;
+<%
+	maia.physicalStructure.PhysicalComponent pComp = (maia.physicalStructure.PhysicalComponent) argument;
+	boolean allStatic = pComp.getType() == ResourceType.FENCED;
+	
+	String methodPrefix = allStatic ? "static" : ""; 
+%>
+Public class <%=Util.Capitalize(pComp.getName())%>PhyCom extends PhysicalComponent{
+	<% for (Property prop : pComp.getProperty()){ %>
+	<%@ include file="property.inc" %>
+	<% }%>
+
+}

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/MAIA/src" modelPluginID="MAIA" modelName="MaiaNew"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>maiaNew.ecore</foreignModel>
+  <genPackages prefix="Maia" disposableProviderFactory="true" ecorePackage="maiaNew.ecore#/">
+    <genClasses ecoreClass="maiaNew.ecore#//MAIA">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/constitutionalStructure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/collectiveStructure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/physicalStructure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/operationalStructure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/evaluativeStructure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//MAIA/ontologicalStructure"/>
+    </genClasses>
+    <nestedGenPackages prefix="PhysicalStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//physicalStructure">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="maiaNew.ecore#//physicalStructure/ResourceType">
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//physicalStructure/ResourceType/open"/>
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//physicalStructure/ResourceType/fenced"/>
+      </genEnums>
+      <genClasses ecoreClass="maiaNew.ecore#//physicalStructure/PhysicalComponent">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//physicalStructure/PhysicalComponent/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalComponent/affordance"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalComponent/behaviour"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalComponent/property"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//physicalStructure/Connection">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//physicalStructure/Connection/connectionName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/Connection/beginNode"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/Connection/endNode"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//physicalStructure/Composition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//physicalStructure/Composition/compositionName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/Composition/composition"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//physicalStructure/Composition/cardinality"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/Composition/component"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//physicalStructure/PhysicalStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalStructure/physicalComponent"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalStructure/connection"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//physicalStructure/PhysicalStructure/composition"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="EvaluativeStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//evaluativeStructure">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="maiaNew.ecore#//evaluativeStructure/relationType">
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//evaluativeStructure/relationType/directRelationship"/>
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//evaluativeStructure/relationType/indirectRelationship"/>
+      </genEnums>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/Debugging">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Debugging/dependentVariableDebug"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Debugging/relatedAction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Debugging/independentVariables"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//evaluativeStructure/Debugging/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Debugging/updateValue"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Debugging/calculation"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/Evaluation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Evaluation/dependentVariableEval"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Evaluation/relatedAction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Evaluation/independentVariables"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//evaluativeStructure/Evaluation/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Evaluation/updateValue"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/Evaluation/calculation"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/EvaluativeStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/EvaluativeStructure/evaluation"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/EvaluativeStructure/debugging"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/EvaluativeStructure/propertyVariable"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/EvaluativeStructure/ontologicalVariable"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/EvaluativeStructure/personalValueVariable"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//evaluativeStructure/Variable">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//evaluativeStructure/Variable/label"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//evaluativeStructure/Variable/value"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/PropertyVariable">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/PropertyVariable/property"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/PersonalValueVariable">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/PersonalValueVariable/personalValue"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//evaluativeStructure/OntologicalConceptVariable">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//evaluativeStructure/OntologicalConceptVariable/ontolgicalConcept"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="ConstitutionalStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//constitutionalStructure">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="maiaNew.ecore#//constitutionalStructure/deonLogicType">
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//constitutionalStructure/deonLogicType/obliges"/>
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//constitutionalStructure/deonLogicType/permits"/>
+        <genEnumLiterals ecoreEnumLiteral="maiaNew.ecore#//constitutionalStructure/deonLogicType/prohibits"/>
+      </genEnums>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/Role">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/objective"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/institutionalCapability"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/institution"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/entryCondition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/physicalComponent"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Role/information"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//constitutionalStructure/InstitutionalStatement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//constitutionalStructure/InstitutionalStatement/label"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/InstitutionalStatement/attribute"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/InstitutionalStatement/aIm"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/InstitutionalStatement/condition"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/SharedStrategy"/>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/Norm">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//constitutionalStructure/Norm/deonticType"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/Rule">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//constitutionalStructure/Rule/deonticType"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Rule/OrElse"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/Dependency">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Dependency/dependant"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Dependency/dependee"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Dependency/dependantObjective"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//constitutionalStructure/Dependency/label"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/Objective">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//constitutionalStructure/Objective/label"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/Objective/meetingCondition"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//constitutionalStructure/Sanction"/>
+      <genClasses ecoreClass="maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure/roles"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure/institutions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure/dependencies"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure/sanctions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//constitutionalStructure/ConstitutionalStructure/objectives"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="CollectiveStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//collectiveStructure">
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/Agent">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/personalValue"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/physicalComponent"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/possibleRole"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/intrinsicBehaviour"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/property"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/information"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/Agent/decision"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/PersonalValue">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/PersonalValue/label"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/PersonalValue/decisionInfluence"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/PersonalValue/value"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/DecisionInfluence">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/DecisionInfluence/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/DecisionInfluence/limit"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/CollectiveStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/CollectiveStructure/agent"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/CollectiveStructure/decisionCriteria"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/CollectiveStructure/personalValue"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/MCDA">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/MCDA/label"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/MCDA/threshold"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/MCDA/aspects"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/MCDA/conditions"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//collectiveStructure/DecisionCriterion">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/DecisionCriterion/label"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/DecisionCriterion/weight"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/PersonalValueAspect">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/PersonalValueAspect/personalValue"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/PropertyAspect">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/PropertyAspect/property"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/ConditionAspect">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/ConditionAspect/condition"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//collectiveStructure/SanctionAspect">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//collectiveStructure/SanctionAspect/sanction"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//collectiveStructure/SanctionAspect/fineValue"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="OperationalStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//operationalStructure">
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/ActionBody">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//operationalStructure/ActionBody/actionName"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/EntityAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/actionBody"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/postCondition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/preCondition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/perfomer"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/roleEnactment"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/decisionMaking"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/institution"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/EntityAction/postConditionNotDo"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/ActionSituation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//operationalStructure/ActionSituation/label"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/ActionSituation/actions"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/ActionSituation/preCondition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/ActionSituation/postCondition"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/ActionArena">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/ActionArena/actionSituation"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/RoleEnactment">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/RoleEnactment/role"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/RoleEnactment/agent"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//operationalStructure/RoleEnactment/label"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//operationalStructure/Plan">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//operationalStructure/Plan/name"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/PlanSequence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanSequence/plan1"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanSequence/plan2"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/PlanAlternative">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanAlternative/plan1"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanAlternative/plan2"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/PlanLoop">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanLoop/plan"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanLoop/condition"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/OperationalStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/OperationalStructure/actionPlans"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/OperationalStructure/actionsituation"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/OperationalStructure/actionArena"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/OperationalStructure/roleEnactments"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/OperationalStructure/actionBody"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/Performer">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//operationalStructure/Performer/name"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//operationalStructure/PlanCondition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanCondition/plan"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//operationalStructure/PlanCondition/condition"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="OntologicalStructure" disposableProviderFactory="true"
+        ecorePackage="maiaNew.ecore#//ontologicalStructure">
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/OntologicalStructure">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/OntologicalStructure/ontologicalConcepts"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/OntologicalStructure/conditions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/OntologicalStructure/properties"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/OntologicalConcept">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/OntologicalConcept/label"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/OntologicalConcept/URI"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//ontologicalStructure/Condition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/Condition/label"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//ontologicalStructure/LogicalCondition"/>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/NaturalLangCondition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/NaturalLangCondition/statement"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//ontologicalStructure/MathCondition"/>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/Negformula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/Negformula/conditionStatement"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/ORformula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/ORformula/leftConditionStatement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/ORformula/rightConditionStatement"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/ANDformula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/ANDformula/leftConditionStatement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/ANDformula/rightConditionStatement"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/equalFormula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/equalFormula/leftConditionStatement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/equalFormula/rightConditionStatement"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/moreEqformula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/moreEqformula/leftConditionStatement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/moreEqformula/rightConditionStatement"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/lessformula">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/lessformula/leftConditionStatement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference maiaNew.ecore#//ontologicalStructure/lessformula/rightConditionStatement"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="maiaNew.ecore#//ontologicalStructure/Property">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/Property/label"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/NumberProperty">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/NumberProperty/value"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/BooleanProperty">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/BooleanProperty/value"/>
+      </genClasses>
+      <genClasses ecoreClass="maiaNew.ecore#//ontologicalStructure/StringProperty">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute maiaNew.ecore#//ontologicalStructure/StringProperty/value"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

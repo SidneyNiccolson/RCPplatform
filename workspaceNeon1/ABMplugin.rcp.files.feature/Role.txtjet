@@ -1,0 +1,10 @@
+<%@ jet package="JETTemplates"  class="Role"  %>
+
+package constitutionalStructure;
+
+public abstract class Role {
+	public static boolean entryCondition(Agent agent){
+		return true;
+	}
+}
+

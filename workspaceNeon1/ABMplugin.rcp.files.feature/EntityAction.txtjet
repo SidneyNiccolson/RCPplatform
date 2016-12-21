@@ -1,0 +1,168 @@
+<%@ jet package="JETTemplates"  class="EntityAction"  %>
+
+package operationalStructure ;
+
+public abstract class EntityAction {
+	public static boolean preCondition(Agent agent){
+		//default value is set to true
+		return true;
+
+
+	}
+	
+	public static void enactRole(Agent agent){
+		if (agent.assignRole(Role role)){
+			return true;
+		}
+		return false;
+	}
+
+
+	//for those entity actions that only have a body without insitution or decision, such as physical component
+	//behaviour
+	public static boolean execute(Agent agent){
+		if (enactRole(agent)) else return false; // could not enact role
+		if(preCondition( agent)){
+			//apply post condition
+			return true;
+		}//precondition not met, don't do anything
+		return false;
+
+	}
+	
+public static boolean executeWithDecision(Agent agent){
+		//there is a decision associated with this action but no institution
+	if (enactRole(agent)) else return false; // could not enact role
+
+	if(preCondition( agent)){
+		if(agent.decision()){
+				//execute action
+				//apply Post Condition
+				//update objective
+			return true;
+		}
+			else { //decides not to do it. 
+				//apply Post Condition
+				//update objective
+				return false;
+			}
+		}
+		return false;
+	}
+	public static boolean executeWithRule(Agent agent){
+
+		f(enactRole(agent)) else return false; //could not enact role
+
+		if(preCondition( agent)){
+			
+			if(Institution.institutionCondition()){ //what if there is more than one institution
+
+				if(agent.decision()  && (Institution.deonticType.equals("permission")|| Institution.deonticType.equals("obligation"))){
+					
+					//execute action		
+					//apply Post Condition
+				}// decides not to do or institution type is prohibition
+				
+				if(agent.decision()&& Institution.deonticType.equals("prohibition")){
+					// the agent decides to perform the action even though he is prohibited
+					//execute action
+					//apply post condition
+					//apply sanction, update objective
+				}// the agent does not decide to do it or he is prohibited to do it
+				
+				if(!agent.decision() && Institution.deonticType.equals("prohibition")){
+					// the agent decides not to do it, and he was prohibited
+					//update objective, no sanction
+				}
+				
+				if(!agent.decision() && Institution.deonticType.equals("permission")){
+					//nothing happens, objective not updated, no care situation
+				}
+				
+				if(!agent.decision() &&  Institution.deonticType.equals("obligation")){
+					// the agent does not do it, but he should have done it
+					
+					//perform sanction
+					//objective update
+					
+				}
+			}// institution condition does not hold
+			//so the agent decides without considering the institution condition. 
+
+			return true;
+		}//precondition not met, don't do anything
+		return false;
+
+	}
+
+	
+	public static boolean executeWithNorm(Agent agent){
+		enactRole(agent);
+
+		if(Institution.institutionCondition()){
+			if(preCondition( agent)){
+
+				if(agent.decision() && (Institution.deonticType.equals("permission")|| Institution.deonticType.equals("obligation"))){
+
+				//execute action		
+				//apply Post Condition
+			}// decides not to do or institution type is prohibition
+			
+			if(agent.decision()&& Institution.deonticType.equals("prohibition")){
+				// the agent decides to perform the action even though he is prohibited
+				//execute action
+				//apply post condition
+				//no sanction, update objective
+			}// the agent does not decide to do it or he is prohibited to do it
+			
+			if(!agent.decision() && Institution.deonticType.equals("prohibition")){
+				// the agent decides not to do it, and he was prohibited
+				//update objective, no sanction
+			}
+			
+			if(!agent.decision() && Institution.deonticType.equals("permission")){
+				//nothing happens, objective not updated, no care situation
+			}
+			
+			if(!agent.decision() &&  Institution.deonticType.equals("obligation")){
+				// the agent does not do it, but he should have done it
+				
+				//no sanction
+				//objective update
+				
+			}
+		}
+
+		return true;
+	}//precondition not met, don't do anything
+	return false;
+	
+}
+
+
+public static boolean executeWithSharedStrategy(Agent agent){
+	
+	enactRole(agent);
+
+	if(preCondition( agent)){
+		if(Institution.institutionCondition()){
+			if(agent.decision() ){
+
+			//execute action		
+			//apply Post Condition
+			}
+
+
+			if(!agent.decision() ){
+			// the agent decides not to do it, and he was prohibited
+			//update objective
+			}
+
+		//there are no sanctions nor deontic type
+		}
+
+		return true;
+	}//precondition not met, don't do anything
+	return false;
+
+}

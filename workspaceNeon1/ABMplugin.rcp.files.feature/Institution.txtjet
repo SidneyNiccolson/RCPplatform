@@ -1,0 +1,17 @@
+<%@ jet package="JETTemplates"  class="Institution"  %>
+
+package constitutionalStructure;
+
+public abstract class Institution {
+	public static String deonticType; //obligation, permission, prohibition
+	public static String type; // norm, sharedStrategy, rule
+	
+	public static boolean institutionCondition(){
+		return true;
+	}
+	
+	public static void performSanction(Agent agent){
+		
+	}
+	
+}

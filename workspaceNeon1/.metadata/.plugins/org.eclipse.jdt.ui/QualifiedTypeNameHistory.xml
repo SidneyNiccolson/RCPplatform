@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.TabFolder"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.TabItem"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Shell"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.custom.ScrolledComposite"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.graphics.FontData"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.graphics.Color"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Display"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.graphics.Device"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.DragDetectListener"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Scale"/>
+<fullyQualifiedTypeName name="javax.swing.JSlider"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Button"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.VerifyListener"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.VerifyEvent"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.MessageDialog"/>
+<fullyQualifiedTypeName name="maia.operationalStructure.Plan"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.MessageBox"/>
+<fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+<fullyQualifiedTypeName name="org.eclipse.debug.ui.actions.AbstractLaunchToolbarAction"/>
+<fullyQualifiedTypeName name="org.eclipse.debug.ui.IDebugUIConstants"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.action.MenuManager"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Combo"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.SelectionEvent"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.events.SelectionAdapter"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.TreeItem"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Tree"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+<fullyQualifiedTypeName name="maia.ontologicalStructure.Property"/>
+<fullyQualifiedTypeName name="JETTemplates.Ticks"/>
+<fullyQualifiedTypeName name="org.eclipse.core.resources.IProject"/>
+<fullyQualifiedTypeName name="org.eclipse.core.resources.ResourcesPlugin"/>
+<fullyQualifiedTypeName name="org.eclipse.core.resources.IResource"/>
+<fullyQualifiedTypeName name="org.eclipse.core.runtime.NullProgressMonitor"/>
+<fullyQualifiedTypeName name="JETTemplates.CSVUtils"/>
+<fullyQualifiedTypeName name="maia.physicalStructure.PhysicalComponent"/>
+<fullyQualifiedTypeName name="maia.constitutionalStructure.Role"/>
+</qualifiedTypeNameHistroy>

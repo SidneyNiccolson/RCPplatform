@@ -1,0 +1,8 @@
+<%@ jet package="JETTemplates"  class="Role_instances"  %>
+
+package constitutionalStructure;
+
+public class inspectionOfficer extends Role
+{
+}
+

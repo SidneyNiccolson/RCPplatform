@@ -1,0 +1,228 @@
+/* ++++++ Remove these to have ONLY the main IDE shell dark ++++++ */
+	/* Important!!! */
+	Composite, ScrolledComposite, ExpandableComposite, TabFolder, CLabel, Label,
+	ToolItem, Sash, Group, Hyperlink, RefactoringLocationControl, Link, FilteredTree,
+	ProxyEntriesComposite, NonProxyHostsComposite, DelayedFilterCheckboxTree,
+	Splitter, ScrolledPageContent, ViewForm, LaunchConfigurationFilteredTree,
+	ContainerSelectionGroup, BrowseCatalogItem, EncodingSettings,
+	ProgressMonitorPart, DocCommentOwnerComposite, NewServerComposite,
+	NewManualServerComposite, ServerTypeComposite, FigureCanvas,
+	DependenciesComposite, ListEditorComposite, WrappedPageBook,
+	CompareStructureViewerSwitchingPane, CompareContentViewerSwitchingPane,
+	QualifiedNameComponent, RefactoringStatusViewer, ImageHyperlink,
+	Button /* SWT-BUG: checkbox inner label font color is not accessible */,
+	ViewForm > ToolBar, /* SWT-BUG: ToolBar do not inherit rules from ViewForm */
+	/*Shell [style~='SWT.DROP_DOWN'] > GradientCanvas,*/ /* ignored */
+	/* SWT-BUG dirty workaround [Eclipse Bug 419482]: a generic rule (eg: Composite > *) needed to catch an
+	   element without a CSS id, a CSS class and a seekable Widget name, cannot be overridden
+	   by a subsequent more specific rule used to correct the style for seekable elements (<1>): */
+	TabFolder > Composite > *, /* Composite > CommitSearchPage$... */
+	TabFolder > Composite > * > * /* [style~='SWT.NO_BACKGROUND'] <- generate E4 non-sense bugs in apparently not related other rules */, /* Composite > ContentMergeViewer$... > TextMergeViewer$... */
+	DocCommentOwnerComposite > Group > *, /* Group > DocCommentOwnerComposite$... */
+	TabFolder > Composite > ScrolledComposite > *, /* ScrolledComposite > ControlListViewer$... */
+	Shell > Composite > Composite > *, /* Composite > StatusDialog$MessageLine (SWT-BUG: ignored) */
+	Composite > Composite > Composite > ToolBar, /* Window->Preference (top toolbar) */
+	Composite > Composite > Composite > Group > *, /* Group > CreateRefactoringScriptWizardPage$... */
+	Shell > Composite > Composite > Composite > *, /* Composite > FilteredPreferenceDialog$... */
+	ScrolledComposite > Composite > Composite > Composite > *, /* Composite > NewKeysPreferencePage$... */
+	Shell > Composite > Composite > Composite > Composite > Composite > *, /* Composite > ShowRefactoringHistoryWizardPage$... */
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > *, /* Composite > RefactoringWizardDialog$... */
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > * > * /* Composite > RefactoringWizardDialog$... */ {
+	    background-color:#778899;
+	    color: #fdfdfd;
+	}
+	/* Important!!! */
+	List,
+	/* It might be useless but currently it's needed due to a strange priority
+	   policy used by the E4 platform to apply CSS rules to SWT widgets (see <1>): */
+	Composite > List,
+	TabFolder > Composite > List,
+	TabFolder > Composite > * > List,
+	DocCommentOwnerComposite > Group > List,
+	TabFolder > Composite > ScrolledComposite > List,
+	Shell > Composite > Composite > List,
+	Composite > Composite > Composite > Group > List,
+	Shell > Composite > Composite > Composite > List,
+	ScrolledComposite > Composite > Composite > Composite > List,
+	Shell > Composite > Composite > Composite > Composite > Composite > List,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > List,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > * > List {
+	     background-color:#778899;
+	    color: #fdfdfd;
+	}
+	/* Important!!! */
+	Combo,
+	/* It might be useless but currently it's needed due to a strange priority
+	   policy used by the E4 platform to apply CSS rules to SWT widgets (see <1>): */
+	Composite > Combo,
+	TabFolder > Composite > Combo,
+	TabFolder > Composite > * > Combo,
+	DocCommentOwnerComposite > Group > Combo,
+	TabFolder > Composite > ScrolledComposite > Combo,
+	Shell > Composite > Composite > Combo,
+	Composite > Composite > Composite > Group > Combo,
+	Shell > Composite > Composite > Composite > Combo,
+	ScrolledComposite > Composite > Composite > Composite > Combo,
+	Shell > Composite > Composite > Composite > Composite > Composite > Combo,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > Combo,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > * > Combo {
+	    background-color: #778899;
+	    color: #fdfdfd;
+	}
+	
+	
+	
+	/*Important for java code stuff */
+	StyledText, 
+	Spinner,
+	CCombo {
+	    background-color: #ffffff;
+	    color: #000000;
+	}
+	
+	
+	
+	
+	
+	/* Important!!! */
+	Tree,
+	RegistryFilteredTree,
+	/* It might be useless but currently it's needed due to a strange priority
+	   policy used by the E4 platform to apply CSS rules to SWT widgets (see <1>): */
+	Composite > Tree,
+	TabFolder > Composite > Tree,
+	TabFolder > Composite > * > Tree,
+	DocCommentOwnerComposite > Group > Tree,
+	TabFolder > Composite > ScrolledComposite > Tree,
+	Shell > Composite > Composite > Tree,
+	Composite > Composite > Composite > Group > Tree,
+	Shell > Composite > Composite > Composite > Tree,
+	ScrolledComposite > Composite > Composite > Composite > Tree,
+	Shell > Composite > Composite > Composite > Composite > Composite > Tree,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > Tree,
+	Shell[style~='SWT.RADIO'][style~='SWT.CASCADE'][style~='SWT.SHADOW_ETCHED_IN'][style~='SWT.SHADOW_ETCHED_OUT'][style~='SWT.RESIZE'][style~='SWT.MENU'][style~='SWT.FULL_SELECTION'][style~='SWT.DATE'] > Composite > * > Tree {
+	    background-color: #2F2F2F; /*TRee project explorer*/
+	    color:#fdfdfd;
+	}
+	
+	
+	/*Important for tabs*/
+	CTabFolder {
+	    background-color: #778899;
+	    color:#000000;
+	    swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
+	
+		swt-tab-height: 32px;
+	
+	    padding: 0px 6px 6px 6px; /* top left bottom right */
+	    swt-tab-outline: #778899; /* border color for selected tab */
+	    swt-outer-keyline-color:  #515658; /* border color for whole tabs container */
+	    swt-unselected-tabs-color: #515658 #515658 #515658 99% 100%; /* title background for unselected tab */
+	    swt-selected-tab-fill:#778899 ; /* title background for selected tab (gradient bottom color) */
+	    swt-tab-color: #778899;
+	    swt-shadow-color:  #000000;
+	    swt-shadow-visible: true;
+	
+	    swt-mru-visible: true;
+	
+	    swt-corner-radius: 16px;
+	}
+	
+
+
+	
+	.MPart Section > Label {
+		background-color: #2F2F2F;
+	    color: #ABCEDA;
+	}
+	.MPartStack.active .MPart Section > Label {
+		background-color: #2F2F2F;
+	    color: #9EC1CE;
+	}
+	
+	.MPart Table,
+	.MPart Browser,
+	.Mpart OleFrame,
+	.MPart ViewForm,
+	.MPart ViewForm > ToolBar,
+	.MPart ViewForm > CLabel,
+	.MPart PageBook > Label,
+	.MPart PageBook > SashForm,
+	#org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite,
+	#org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite > * {
+		background-color: #2F2F2F;
+	    color:#fdfdfd;
+	}
+	.MPartStack.active .MPart Table,
+	.MPartStack.active .MPart Browser,
+	.MPartStack.active .Mpart OleFrame,
+	.MPartStack.active .MPart ViewForm,
+	.MPartStack.active .MPart ViewForm > ToolBar,
+	.MPartStack.active .MPart ViewForm > CLabel,
+	.MPartStack.active .MPart PageBook > Label,
+	.MPartStack.active .MPart PageBook > SashForm,
+	.MPartStack.active #org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite,
+	.MPartStack.active #org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite > * {
+		background-color: #2F2F2F;
+	    color: #ffffff;
+	}
+	#org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite ImageHyperlink {
+		background-color: #2F2F2F;
+	    color: #6fc5ee;
+	}
+	.MPartStack.active #org-eclipse-help-ui-HelpView LayoutComposite > LayoutComposite ImageHyperlink {
+		background-color: #2F2F2F;
+	    color: #7AAADA;
+	}
+	
+	.MPart > Label,
+	#com-android-ide-eclipse-adt-internal-lint-LintViewPart > Composite > Label {
+	    background-color: #2F2F2F;
+	    color: #7DC2BD;
+	}
+	.MPartStack.active .MPart > Label,
+	.MPartStack.active #com-android-ide-eclipse-adt-internal-lint-LintViewPart > Composite > Label {
+	    background-color: #2F2F2F;
+	    color: #B1E8F7;
+	}
+	
+	.MPart Section Tree,
+	.MPart LayoutComposite > * > LayoutComposite > Section > LayoutComposite > Tree {
+	    background-color:#2F2F2F;
+	    color: #ffffff;
+	}
+	.MPartStack.active .MPart Section Tree,
+	.MPartStack.active .MPart LayoutComposite > * > LayoutComposite > Section > LayoutComposite > Tree {
+	    background-color:#2F2F2F;
+	    color:#fdfdfd;
+	}
+	
+/* prevent CSS Spy red borders to be grayed with a generic Shell selector */
+	Shell[style~='SWT.SHADOW_ETCHED_OUT'], Shell[style~='SWT.SHADOW_ETCHED_IN'],
+	Shell[style~='SWT.CHECK'], Shell[style~='SWT.TITLE'], Shell[style~='SWT.OK'],
+	Shell[style~='SWT.CANCEL'], Shell[style~='SWT.ABORT'], Shell[style~='SWT.DROP_DOWN'],
+	Shell[style~='SWT.ARROW'], Shell[style~='SWT.RADIO'], Shell[style~='SWT.SINGLE'],
+	Shell[style~='SWT.SHADOW_IN'], Shell[style~='SWT.TOOL'], Shell[style~='SWT.RESIZE'],
+	Shell[style~='SWT.SHELL_TRIM'], Shell[style~='SWT.FILL'], Shell[style~='SWT.ALPHA'],
+	Shell[style~='SWT.BORDER'], Shell[style~='SWT.DIALOG_TRIM'], Shell[style~='SWT.IGNORE'],
+	Shell[style~='SWT.FULL_SELECTION'], Shell[style~='SWT.SMOOTH'], Shell[style~='SWT.VIRTUAL'],
+	Shell[style~='SWT.APPLICATION_MODAL'], Shell[style~='SWT.MEDIUM'], Shell[style~='SWT.LONG']
+	{
+	    background-color: #778899;
+	    color:#515658;
+	}
+	Shell > Composite > Table[style~='SWT.DROP_DOWN'] {
+	    background-color: #778899;
+	    color: #515658;
+	}
+	
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite,
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite Composite,
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite ScrolledComposite,
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite Canvas,
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite StyledText,
+	Shell[style~='SWT.DROP_DOWN'][style~='SWT.SHADOW_IN'][style~='SWT.SHADOW_ETCHED_IN'] > Composite Label {
+	/* Error information popup */
+	    background-color: #778899;
+	    color:#fdfdfd;
+	}

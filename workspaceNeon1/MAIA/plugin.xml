@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/1.0"
+            class="maia.MaiaPackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/physicalStructure/1.0"
+            class="maia.physicalStructure.PhysicalStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/evaluativeStructure/1.0"
+            class="maia.evaluativeStructure.EvaluativeStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/constitutionalStructure/1.0"
+            class="maia.constitutionalStructure.ConstitutionalStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/collectiveStructure/1.0"
+            class="maia.collectiveStructure.CollectiveStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/operationalStructure/1.0"
+            class="maia.operationalStructure.OperationalStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated tool -->
+      <package
+            uri="http://maia/ontologicalStructure/1.0"
+            class="maia.ontologicalStructure.OntologicalStructurePackage"
+            genModel="model/tool.genmodel"/>
+   </extension>
+
+</plugin>

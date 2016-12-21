@@ -1,0 +1,78 @@
+<%@ jet package="JETTemplates"  class="Agent_instance" imports="maia.physicalStructure.* maia.collectiveStructure.* maia.ontologicalStructure.*" %>
+package collectiveStructure;
+<%
+	maia.collectiveStructure.Agent agent = (maia.collectiveStructure.Agent)argument;
+	String methodPrefix = ""; 
+%>
+public class <%=Util.Capitalize(agent.getName())%>Agent extends Agent{
+	
+	<% for (Property prop : agent.getProperty()){ %>
+	<%@ include file="property.inc" %>	
+	<% }%>
+	
+	<% 	for (maia.physicalStructure.PhysicalComponent pCom :agent.getPhysicalComponent()){
+	if (pCom.getType()== ResourceType.FENCED){%>
+	
+	private <%=pCom.getName()%>PhyCom <%=pCom.getName()%> = new <%=pCom.getName()%>PhyCom;
+	public <%=pCom.getName()%>PhyCom get<%=Util.Capitalize(pCom.getName())%>(){
+		return <%=pCom.getName()%>;
+	}
+
+	public void set<%=pCom.getName()%>(<%=pCom.getName()%>PhyCom value){
+		<%=pCom.getName()%> = value;
+	}	
+	<%}
+	}%>
+	
+	/* Constructor */
+	public <%=agent.getName()%>Agent(){
+		<% for(Condition info : agent.getInformation()){ %>
+		<%=info.getLabel()%>
+		<%}%>
+	}
+	
+	<% for(Condition info : agent.getInformation()){ %>
+	<%=info.getLabel()%>
+	<%}%>
+	
+	<% for(PersonalValue pValue : agent.getPersonalValue()){
+	double limit = 0;
+	if (pValue.getDecisionInfluence()!=null)
+		limit = Double.parseDouble(pValue.getDecisionInfluence().getLimit());
+	String name = pValue.getLabel();
+	double defValue = pValue.getValue();
+	%>
+	private double <%=name%> = <%=defValue%>;
+	public double get<%=Util.Capitalize(name)%>(){
+		return <%=name%>;
+	}
+	public void set<%=Util.Capitalize(name)%>(double value){
+		if (value > <%=limit%>){
+			// raise error
+		}
+		else{
+			<%=name%> = value;
+		}
+	}
+	<%}%>
+	
+	// possible roles
+	<%for (maia.constitutionalStructure.Role role :agent.getPossibleRole()){
+		String roleName = role.getName();%>
+		Boolean is<%=roleName%> = false;
+		<%=roleName%>Objective <%=roleName%>Objective = new <%=roleName%>Objective();	
+	<%}%>
+	
+	public void assignRole(String possibleRole){	
+		<%for (maia.constitutionalStructure.Role role :agent.getPossibleRole()){%> 	
+		if(possibleRole.equals("<%=Util.Capitalize(role.getName())%>")){
+			if(<%=Util.Capitalize(role.getName())%>.entryCondition(this)){
+				this.is<%=Util.Capitalize(role.getName())%> = true;
+				<%=role.getName()%>Objective =new FatherObjective();
+			}
+		}
+		<%}%>		
+	}
+	
+}
+

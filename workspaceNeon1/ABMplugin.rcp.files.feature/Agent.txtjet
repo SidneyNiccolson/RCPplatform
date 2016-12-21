@@ -1,0 +1,15 @@
+<%@ jet package="JETTemplates"  class="Agent"  %>
+package collectiveStructure;
+
+public abstract class Agent {
+	int id;
+	int plan;
+	int step;
+	
+	public boolean assignRole(Role role){
+		return true;
+	}
+	public boolean decision(){
+		return true;
+	}
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.pde.ui.dialogs.FeatureSelectionDialog">
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History/&gt;" key="History"/>
+		<section name="DialogBoundsSettings">
+			<item value="600" key="DIALOG_WIDTH"/>
+			<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
+			<item value="315" key="DIALOG_X_ORIGIN"/>
+			<item value="69" key="DIALOG_Y_ORIGIN"/>
+		</section>
+	</section>
+	<section name="PDEFormActionManager">
+		<list key="RecentLaunches">
+			<item value="org.eclipse.pde.ui.runtimeWorkbenchShortcut"/>
+		</list>
+	</section>
+	<section name="org.eclipse.pde.ui.dialogs.PluginSelectionDialog">
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History/&gt;" key="History"/>
+		<section name="DialogBoundsSettings">
+			<item value="600" key="DIALOG_WIDTH"/>
+			<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
+			<item value="315" key="DIALOG_X_ORIGIN"/>
+			<item value="69" key="DIALOG_Y_ORIGIN"/>
+		</section>
+	</section>
+	<section name="ProductExportWizard">
+		<item value="/home/chai/testRCPApp" key="destination0"/>
+		<item value="true" key="syncProduct"/>
+		<item value="/home/chai/testRCPApp" key="destination1"/>
+		<item value="win32 (win32/x86)" key="cross-platform"/>
+		<item value="Generate source bundles" key="exportSourceFormat"/>
+		<item value="eclipse" key="productRoot"/>
+		<item value="true" key="multiplatform"/>
+		<item value="/ABMplugin.rcp/ABMplugin.product" key="productConfig0"/>
+		<item value="false" key="exportSource"/>
+		<item value="true" key="exportDirectory"/>
+		<item value="true" key="allowBinaryCycles"/>
+		<item value="/ABMplugin.rcp/ABMplugin.product" key="productConfig1"/>
+		<item value="true" key="p2metadata"/>
+	</section>
+	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="editBundleContainerWizard">
+	</section>
+</section>

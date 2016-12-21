@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from project &apos;ABMplugin.rcp.files.feature&apos;&#x0A;- Original project: &apos;ABMplugin.rcp.files.feature&apos;&#x0A;- Original elements:&#x0A;     eclipse-equinox-common-3.5.0.jar&#x0A;     org.eclipse.core.resources.jar&#x0A;     org.eclipse.core.runtime-3.7.0.jar" description="Delete elements" element1="org.eclipse.core.runtime-3.7.0.jar" element2="eclipse-equinox-common-3.5.0.jar" element3="org.eclipse.core.resources.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="3" stamp="1480775615538" subPackages="false" version="1.0"/>
+</session>

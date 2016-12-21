@@ -1,0 +1,28 @@
+<%@ jet package="JETTemplates"  class="DecisionCritria_instances"  %>
+<%
+	Object[] args = (Object[])argument;
+	maia.collectiveStructure.MCDA decisionCriteria = (maia.collectiveStructure.MCDA)args[0];
+	maia.collectiveStructure.Agent parentAgent = (maia.collectiveStructure.Agent)args[1];
+%>
+package collective;
+
+public class TransportByBikeElderyDecision extends DecisionCriterion{
+	
+static double threshold =10.0 ;
+	
+	public static boolean condition(FamilyMember familyMember){
+		if(familyMember.getAge()<50) return true;
+		else return false;
+	}
+	
+	public static double MCDAcalculation(FamilyMember familyMember){
+		//personal values and properties
+		double value = familyMember.healthValue * �weight� + familyMember.environmentSafety* �weight� +		familyMember.getAge()*�weight� +familyMember.showOffValue *�weight�;
+		return value;	
+	}
+	public static boolean result(FamilyMember familyMember){
+		if(condition(familyMember)&& MCDAcalculation(familyMember)>threshold)
+		return true;
+		return false;
+	}
+}

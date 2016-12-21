@@ -1,0 +1,279 @@
+package JETTemplates;
+
+import maia.physicalStructure.*;
+import maia.collectiveStructure.*;
+import maia.ontologicalStructure.*;
+import maia.constitutionalStructure.*;
+import maia.operationalStructure.*;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+public class MainSimulation {
+	protected static String nl;
+
+	public static synchronized MainSimulation create(String lineSeparator) {
+		nl = lineSeparator;
+		MainSimulation result = new MainSimulation();
+		nl = null;
+		return result;
+	}
+
+	public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+	protected final String TEXT_1 = "package operational;" + NL + "import java.util.ArrayList;" + NL
+			+ "import java.util.Random;" + NL + "import collectiveStructure.*;" + NL + "import operationalStructure.*;"
+			+ NL + "import physicalStructure.*;" + NL + "public class SimulationRun {" + NL;
+	protected final String TEXT_2 = NL + NL + NL + NL + NL + "public static void initialize(){" + NL
+			+ "//number of agents etc.." + NL;
+	protected final String TEXT_3 = NL + "}" + NL + "" + NL + "public static void main(String args[]){" + NL
+			+ "initialize();" + NL + "" + NL + "for (int tick = 0 ; tick < ";
+	protected final String TEXT_4 = "; tick ++){" + NL + "\t" + NL + "\t";
+	protected final String TEXT_5 = NL + "\t" + NL + "" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t}" + NL + "" + NL + ""
+			+ NL + "public static void analyseData(){" + NL + "}" + NL + "" + NL + "" + NL + "}";
+	protected final String TEXT_6 = NL;
+
+	public String generate(Object argument) {
+		final StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append(TEXT_1);
+
+		// cast argument Object into hashmap
+		Map<String, Map<String, Object>> arr = (Map<String, Map<String, Object>>) argument;
+		// retrieve the hashmaps for agent and plans
+		Map<String, Object> agentHashmap = arr.get("myAgents");
+		Map<String, Object> plansHashmap = arr.get("myPlans");
+		Map<String, Object> phyHashmap = arr.get("myPhys");
+		Map<String, Object> ticks = arr.get("ticks");
+		Map<String, Object> agentData = arr.get("agentData");
+		Map<String, Object> phyData = arr.get("phyData");
+		Map<String, Object> attData = arr.get("attr");
+		Map<String, Object> seqData = arr.get("sequencePlan");
+
+		// reconstruct original object
+		Map<String, Integer> sequenceMap = new LinkedHashMap<String, Integer>();
+		Iterator itSeq = seqData.entrySet().iterator();
+		while (itSeq.hasNext()) {
+			Map.Entry pair = (Map.Entry) itSeq.next();
+			Integer sequence = (Integer) pair.getValue();
+			String key = (String) (pair.getKey());
+			sequenceMap.put(key, sequence);
+			// it.remove(); // avoids a ConcurrentModificationException
+		}
+
+		int numberOfTicks = 0;
+		int numberOfAgents = 0;
+		int numberOfPhys = 0;
+		// retrieve number of ticks
+		try {
+			Object value = ticks.get("numberOfTicks");
+			String number = value.toString();
+			numberOfTicks = Integer.parseInt(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Could not find messageDialog inputs: numberOfTicks");
+		}
+		// start parsing through the agent hashmap
+		Iterator it = agentHashmap.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			maia.collectiveStructure.Agent myAgent = (maia.collectiveStructure.Agent) pair.getValue();
+			stringBuffer.append("public static ArrayList<" + Util.Capitalize(myAgent.getName()) + "> "
+					+ myAgent.getName() + " = new ArrayList<" + Util.Capitalize(myAgent.getName()) + ">();\n");
+			// it.remove(); // avoids a ConcurrentModificationException
+		}
+		// start parsing through the phy hashmap
+		Iterator itPhy = phyHashmap.entrySet().iterator();
+		while (itPhy.hasNext()) {
+			Map.Entry pair = (Map.Entry) itPhy.next();
+			maia.physicalStructure.PhysicalComponent phy = (maia.physicalStructure.PhysicalComponent) pair.getValue();
+			String phyPerformer = phy.getName();
+			// check if there is an entityAction performer set with the same
+			// name
+			Iterator itPlan = plansHashmap.entrySet().iterator();
+
+			// loop over the plans to check if there are matches with phy Comps
+			while (itPlan.hasNext()) {
+				Map.Entry pair2 = (Map.Entry) itPlan.next();
+				maia.operationalStructure.Plan plan = (maia.operationalStructure.Plan) pair2.getValue();
+				// try to cast to EntityAction
+				if (plan instanceof maia.operationalStructure.EntityAction) {
+					maia.operationalStructure.EntityAction entityAction = (maia.operationalStructure.EntityAction) plan;
+					if (entityAction != null) {
+						try {
+							String phyCompAction = (entityAction.getPerfomer().getName());
+							// we have a phycom with an entityAction set
+							if (phyCompAction.equals(phyPerformer)) {
+								stringBuffer.append("public static ArrayList<" + Util.Capitalize(phy.getName()) + "> "
+										+ phy.getName() + " = new ArrayList<" + Util.Capitalize(phy.getName())
+										+ ">();\n");
+							}
+						} catch (Exception e) {
+
+						}
+					}
+				}
+			}
+
+		}
+
+		stringBuffer.append(TEXT_2);
+
+		stringBuffer.append("\n");
+		// retrieve the hashmaps for agent and plans
+		// start parsing through the hashmap again
+		Iterator it2 = agentHashmap.entrySet().iterator();
+		
+		while (it2.hasNext()) {
+			Map.Entry pair = (Map.Entry) it2.next();
+			maia.collectiveStructure.Agent myAgent = (maia.collectiveStructure.Agent) pair.getValue();
+			// loop over agent data that is retrieved from messageDialog
+
+			try {
+				Iterator it7 = agentData.entrySet().iterator();
+				while (it7.hasNext()) {
+					Map.Entry pairs = (Map.Entry) it7.next();
+					String agentsOfDiag = pairs.getKey().toString();
+					// if there is a match with the specific agent instance get
+					// that value and set as numberOfAgents
+					if (agentsOfDiag.equals(myAgent.getName())) {
+						numberOfAgents = (int) pairs.getValue();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Could not find messageDialog inputs: number of agents");
+			}
+			stringBuffer.append("\nint numberOf" + Util.Capitalize(myAgent.getName()) + "= " + numberOfAgents + ";\n");
+
+			stringBuffer.append("for (int i = 0; i < numberOf" + Util.Capitalize(myAgent.getName()) + "; i++) {\n");
+
+			stringBuffer.append(Util.Capitalize(myAgent.getName()) + " agent_" + myAgent.getName() + " = new "
+					+ Util.Capitalize(myAgent.getName()) + "();\n");
+
+			for (String key : attData.keySet()) {
+				List<Double> value = (List<Double>) attData.get(key);
+				System.out.println("key = " + key);
+				System.out.println("value = " + value);
+				String[] parts = key.split("\\|");
+				String agName = parts[0];
+				String action = parts[1];
+				Double min = value.get(0);
+				Double max = value.get(1);
+
+				// built up the random function if there is a match
+				if (agName.equals(myAgent.getName())) {
+					stringBuffer.append("Random random_" + action + "_obj" + " = new Random();\n");
+					stringBuffer.append("//random.setSeed(123456789);\n");
+					String random = "random_" + action + "_number";
+					String randomPrim = "random_" + action + "_obj";
+					stringBuffer.append("double " + random + " = " + min + " +(" + max + "  - " + min + ") * "
+							+ randomPrim + ".nextDouble();\n");
+					stringBuffer.append("agent_" + agName + "." + action + " = (" + random + ");\n");
+				}
+			}
+			stringBuffer.append(myAgent.getName() + ".add(agent_" + (myAgent.getName()) + ");\n");
+			stringBuffer.append("}");
+		}
+
+		Iterator itphy2 = phyHashmap.entrySet().iterator();
+		while (itphy2.hasNext()) {
+			Map.Entry pair = (Map.Entry) itphy2.next();
+			maia.physicalStructure.PhysicalComponent phy = (maia.physicalStructure.PhysicalComponent) pair.getValue();
+			// loop over agent data that is retrieved from messageDialog
+
+			String phyPerformer2 = phy.getName();
+			// check if there is an entityAction performer set with the same
+			// name
+			Iterator itPlan2 = plansHashmap.entrySet().iterator();
+
+			// loop over the plans to check if there are matches with phy Comps
+			while (itPlan2.hasNext()) {
+				Map.Entry pair2 = (Map.Entry) itPlan2.next();
+				maia.operationalStructure.Plan plan = (maia.operationalStructure.Plan) pair2.getValue();
+				// try to cast to EntityAction
+				if (plan instanceof maia.operationalStructure.EntityAction) {
+					maia.operationalStructure.EntityAction entityAction = (maia.operationalStructure.EntityAction) plan;
+					if (entityAction != null) {
+						try {
+							String phyCompAction = (entityAction.getPerfomer().getName());
+							// we have a phycom with an entityAction set
+							if (phyCompAction.equals(phyPerformer2)) {
+								try {
+									Iterator itphy = phyData.entrySet().iterator();
+									while (itphy.hasNext()) {
+										Map.Entry pairs = (Map.Entry) itphy.next();
+										String agentsOfDiag = pairs.getKey().toString();
+										// if there is a match with the specific
+										// phy instance get that value and set
+										// as numberOfPhys
+										if (agentsOfDiag.equals(phy.getName())) {
+											numberOfPhys = (int) pairs.getValue();
+										}
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+									System.out.println(
+											"Could not find messageDialog inputs: number of physical components");
+								}
+								stringBuffer.append("\nint numberOf" + Util.Capitalize(phy.getName()) + "= "
+										+ numberOfPhys + ";\n");
+								stringBuffer.append(
+										"for (int i = 0; i < numberOf" + Util.Capitalize(phy.getName()) + "; i++) {\n");
+								stringBuffer.append(Util.Capitalize(phy.getName()) + " phy_" + phy.getName() + " = new "
+										+ Util.Capitalize(phy.getName()) + "();\n");
+								stringBuffer.append(phy.getName() + ".add(phy_" + (phy.getName()) + ");\n");
+								stringBuffer.append("}");
+							}
+						} catch (Exception e) {
+
+						}
+					}
+				}
+			}
+
+		}
+
+		stringBuffer.append(TEXT_3);
+		stringBuffer.append(numberOfTicks);
+		stringBuffer.append(TEXT_4);
+
+		
+
+			Set<String> hs = new HashSet<>();
+			Set<String> agT = new HashSet<>();
+
+			// end of loop sequence of entityActions
+		
+		//create hashmap of entityActions
+		Map<String, maia.operationalStructure.EntityAction> myAvailableActions = new HashMap<String, maia.operationalStructure.EntityAction>();
+		Iterator it4 = plansHashmap.entrySet().iterator();
+		while (it4.hasNext()) {
+			Map.Entry pair2 = (Map.Entry) it4.next();
+			maia.operationalStructure.Plan plan = (maia.operationalStructure.Plan) pair2.getValue();
+			// try to cast to EntityAction
+			if (plan instanceof maia.operationalStructure.EntityAction) {
+				maia.operationalStructure.EntityAction entityAction = (maia.operationalStructure.EntityAction) plan;
+				if (entityAction != null) {
+					myAvailableActions.put(entityAction.getName(), entityAction);
+				}
+			}
+		}
+		//order the sequence hashmap before generating any execution code
+		sequenceMap = Util.sortByValue(sequenceMap);
+		
+		for (Entry<String, Integer> entry : sequenceMap.entrySet()) {
+		    String key = entry.getKey();
+		    Integer value = entry.getValue();
+		 // now work with key and value...
+		    maia.operationalStructure.EntityAction entityActionObj_Ordered = myAvailableActions.get(key);
+		    
+		    String agent_role_pc = Util.Capitalize(entityActionObj_Ordered.getPerfomer().getName());
+		    String actionName = Util.Capitalize(entityActionObj_Ordered.getName());
+		    stringBuffer.append("for("+ agent_role_pc+ " a_"+agent_role_pc+" : " +agent_role_pc+"){\n"+actionName+".execute(a_"+agent_role_pc+");");
+		    		
+	}
+		stringBuffer.append(TEXT_5);
+		stringBuffer.append(TEXT_6);
+		return stringBuffer.toString();
+	}
+
+}

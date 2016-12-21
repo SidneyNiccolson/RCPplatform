@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;handlers.TestHandler&apos; to &apos;SaveAllHandler&apos;&#x0A;- Original project: &apos;ABMplugin.rcp&apos;&#x0A;- Original element: &apos;handlers.TestHandler&apos;&#x0A;- Renamed element: &apos;handlers.SaveAllHandler&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TestHandler&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;handlers{TestHandler.java[TestHandler" matchStrategy="1" name="SaveAllHandler" qualified="false" references="true" similarDeclarations="false" stamp="1480509991602" textual="false" version="1.0"/>
+</session>

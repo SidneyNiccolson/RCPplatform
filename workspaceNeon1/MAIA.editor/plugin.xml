@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.presentation.MaiaModelWizardID"
+            name="%_UI_MaiaModelWizard_label"
+            class="maia.presentation.MaiaModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/MaiaModelFile.gif">
+         <description>%_UI_MaiaModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.presentation.MaiaEditorID"
+            name="%_UI_MaiaEditor_label"
+            icon="icons/full/obj16/MaiaModelFile.gif"
+            extensions="maia"
+            class="maia.presentation.MaiaEditor"
+            contributorClass="maia.presentation.MaiaActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.physicalStructure.presentation.PhysicalStructureModelWizardID"
+            name="%_UI_PhysicalStructureModelWizard_label"
+            class="maia.physicalStructure.presentation.PhysicalStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PhysicalStructureModelFile.gif">
+         <description>%_UI_PhysicalStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.physicalStructure.presentation.PhysicalStructureEditorID"
+            name="%_UI_PhysicalStructureEditor_label"
+            icon="icons/full/obj16/PhysicalStructureModelFile.gif"
+            extensions="physicalstructure"
+            class="maia.physicalStructure.presentation.PhysicalStructureEditor"
+            contributorClass="maia.physicalStructure.presentation.PhysicalStructureActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.evaluativeStructure.presentation.EvaluativeStructureModelWizardID"
+            name="%_UI_EvaluativeStructureModelWizard_label"
+            class="maia.evaluativeStructure.presentation.EvaluativeStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/EvaluativeStructureModelFile.gif">
+         <description>%_UI_EvaluativeStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.evaluativeStructure.presentation.EvaluativeStructureEditorID"
+            name="%_UI_EvaluativeStructureEditor_label"
+            icon="icons/full/obj16/EvaluativeStructureModelFile.gif"
+            extensions="evaluativestructure"
+            class="maia.evaluativeStructure.presentation.EvaluativeStructureEditor"
+            contributorClass="maia.evaluativeStructure.presentation.EvaluativeStructureActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.constitutionalStructure.presentation.ConstitutionalStructureModelWizardID"
+            name="%_UI_ConstitutionalStructureModelWizard_label"
+            class="maia.constitutionalStructure.presentation.ConstitutionalStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/ConstitutionalStructureModelFile.gif">
+         <description>%_UI_ConstitutionalStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.constitutionalStructure.presentation.ConstitutionalStructureEditorID"
+            name="%_UI_ConstitutionalStructureEditor_label"
+            icon="icons/full/obj16/ConstitutionalStructureModelFile.gif"
+            extensions="constitutionalstructure"
+            class="maia.constitutionalStructure.presentation.ConstitutionalStructureEditor"
+            contributorClass="maia.constitutionalStructure.presentation.ConstitutionalStructureActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.collectiveStructure.presentation.CollectiveStructureModelWizardID"
+            name="%_UI_CollectiveStructureModelWizard_label"
+            class="maia.collectiveStructure.presentation.CollectiveStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/CollectiveStructureModelFile.gif">
+         <description>%_UI_CollectiveStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.collectiveStructure.presentation.CollectiveStructureEditorID"
+            name="%_UI_CollectiveStructureEditor_label"
+            icon="icons/full/obj16/CollectiveStructureModelFile.gif"
+            extensions="collectivestructure"
+            class="maia.collectiveStructure.presentation.CollectiveStructureEditor"
+            contributorClass="maia.collectiveStructure.presentation.CollectiveStructureActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.operationalStructure.presentation.OperationalStructureModelWizardID"
+            name="%_UI_OperationalStructureModelWizard_label"
+            class="maia.operationalStructure.presentation.OperationalStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OperationalStructureModelFile.gif">
+         <description>%_UI_OperationalStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.operationalStructure.presentation.OperationalStructureEditorID"
+            name="%_UI_OperationalStructureEditor_label"
+            icon="icons/full/obj16/OperationalStructureModelFile.gif"
+            extensions="operationalstructure"
+            class="maia.operationalStructure.presentation.OperationalStructureEditor"
+            contributorClass="maia.operationalStructure.presentation.OperationalStructureActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated maiaNew -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="maia.ontologicalStructure.presentation.OntologicalStructureModelWizardID"
+            name="%_UI_OntologicalStructureModelWizard_label"
+            class="maia.ontologicalStructure.presentation.OntologicalStructureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OntologicalStructureModelFile.gif">
+         <description>%_UI_OntologicalStructureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated maiaNew -->
+      <editor
+            id="maia.ontologicalStructure.presentation.OntologicalStructureEditorID"
+            name="%_UI_OntologicalStructureEditor_label"
+            icon="icons/full/obj16/OntologicalStructureModelFile.gif"
+            extensions="ontologicalstructure"
+            class="maia.ontologicalStructure.presentation.OntologicalStructureEditor"
+            contributorClass="maia.ontologicalStructure.presentation.OntologicalStructureActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

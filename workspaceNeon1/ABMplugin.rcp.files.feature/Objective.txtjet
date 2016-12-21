@@ -1,0 +1,57 @@
+<%@ jet package="JETTemplates"  class="Objective"  %>
+
+package constitutionalStructure;
+
+public abstract class Objective {
+	
+	//these are automatically generated fields that are not shown to the modeller, but affect the decision making of the agents.  ComplianceLevel starts from 10 and with every none compliance to a norm or a rule which 
+does not have permission as its deontic, this value is decreased. In the decision making process, if
+	//this value is below 5, it increases the chance of compliance to the norm he is looking at. 
+	public int complianceLevel;
+	public int threshold; // the level of compliance should not go below this value
+	
+	
+	//automatically generated constructor, the modeller does not need to fill in this part in the gui
+	public Objective() {
+		super();
+		this.complianceLevel = 10;
+		this.threshold = 5;
+	}
+	
+	//overridden method
+	public boolean objectiveMet(){
+		
+		// the condition to meet the objective is placed here in the inheriting class
+		return true;
+	}
+	
+	// automatically generated, not the modelller
+	public static void increaseComplianceLevel(Objective objective){
+		// to update the objective by increasing the level of compliance
+		objective.complianceLevel ++;
+	}
+	//automatically generated, not the modeller
+	public static void decreaseComplianceLevel(Objective objective){
+		// to update the objective by decreasing the level of compliance
+		objective.complianceLevel --;
+	}
+	//getters and setters automatically generated
+
+	public void setComplianceLevel(int complianceLevel) {
+		this.complianceLevel = complianceLevel;
+	}
+
+	public int getComplianceLevel() {
+		return complianceLevel;
+	}
+
+	public int getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(int threshold) {
+		this.threshold = threshold;
+	}
+	
+}
+

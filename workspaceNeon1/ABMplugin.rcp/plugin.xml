@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="abmplugin.rcp.Application">
+         </run>
+      </application>
+   </extension>
+<extension id="product_abm" point="org.eclipse.core.runtime.products">
+  <product application="ABMplugin.rcp.application" name="My Product">
+    <property name="appName" value="My Product"> </property>
+    <property name="applicationXMI" value="ABMplugin.rcp/Application.e4xmi"> </property>
+    <property
+          name="applicationCSS"
+          value="platform:/plugin/ABMplugin.rcp/css/default.css">
+    </property>
+  </product>
+</extension>
+
+<extension point="org.eclipse.ui.editors">
+ 
+    <editor class="org.eclipse.emfforms.spi.editor.GenericEditor" default="true" extensions="maia" icon="pathToYourIcon" id="yourID" name="MAIA EMF generic editor (recommended)"/>
+ 
+   </extension>
+   
+<extension
+      point="org.eclipse.ui.newWizards">
+   <category
+         id="ABMplugin.rcp.category.vogella"
+         name="MAIA">
+   </category>
+   <wizard
+         category="ABMplugin.rcp.category.vogella"
+         class="handlers.NewWizard"
+       
+         icon="icons/full/obj16/Agent.gif"
+         id="ABMplugin.rcp.wizard1.mynewwizard"
+         name="MAIA code generation project"
+         project="true">
+   </wizard>
+</extension>
+ 
+   
+   
+
+</plugin>

@@ -1,0 +1,20 @@
+<%@ jet package="JETTemplates"  class="DecisionCriterion"  %>
+package collectiveStructure;
+
+public class DecisionCriterion {
+
+	static double threshold;
+	
+	public static boolean condition(Agent agent){
+		return true;
+	}
+	
+	public static double MCDAcalculation(Agent agent){
+		return 0;
+	}
+	public static boolean result(Agent agent){
+		if(condition(agent)&& MCDAcalculation(agent)>threshold)
+		return true;
+		return false;
+	}
+}

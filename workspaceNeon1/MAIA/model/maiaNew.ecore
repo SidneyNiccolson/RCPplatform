@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="maia" nsURI="http://maia/1.0" nsPrefix="maia">
+  <eClassifiers xsi:type="ecore:EClass" name="MAIA">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constitutionalStructure"
+        lowerBound="1" eType="#//constitutionalStructure/ConstitutionalStructure"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="collectiveStructure" lowerBound="1"
+        eType="#//collectiveStructure/CollectiveStructure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="physicalStructure" eType="#//physicalStructure/PhysicalStructure"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationalStructure" lowerBound="1"
+        eType="#//operationalStructure/OperationalStructure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evaluativeStructure" lowerBound="1"
+        eType="#//evaluativeStructure/EvaluativeStructure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ontologicalStructure" lowerBound="1"
+        eType="#//ontologicalStructure/OntologicalStructure" containment="true"/>
+  </eClassifiers>
+  <eSubpackages name="physicalStructure" nsURI="http://maia/physicalStructure/1.0"
+      nsPrefix="physicalStruct">
+    <eClassifiers xsi:type="ecore:EClass" name="PhysicalComponent" eSuperTypes="#//operationalStructure/Performer">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="#//physicalStructure/ResourceType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="affordance" upperBound="-1"
+          eType="#//operationalStructure/ActionBody"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" upperBound="-1"
+          eType="#//operationalStructure/ActionBody"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="property" upperBound="-1"
+          eType="#//ontologicalStructure/Property"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Connection">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="beginNode" lowerBound="1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="endNode" lowerBound="1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Composition">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="compositionName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="composition" lowerBound="1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cardinality" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ResourceType">
+      <eLiterals name="open"/>
+      <eLiterals name="fenced" value="1" literal="fenced"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PhysicalStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalComponent" upperBound="-1"
+          eType="#//physicalStructure/PhysicalComponent" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connection" upperBound="-1"
+          eType="#//physicalStructure/Connection" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="composition" upperBound="-1"
+          eType="#//physicalStructure/Composition" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="evaluativeStructure" nsURI="http://maia/evaluativeStructure/1.0"
+      nsPrefix="evaluativeStructure">
+    <eClassifiers xsi:type="ecore:EClass" name="Debugging">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependentVariableDebug"
+          eType="#//evaluativeStructure/Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="relatedAction" lowerBound="1"
+          eType="#//operationalStructure/EntityAction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="independentVariables"
+          upperBound="-1" eType="#//evaluativeStructure/Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//evaluativeStructure/relationType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="updateValue" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="calculation" eType="#//ontologicalStructure/NaturalLangCondition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Evaluation">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependentVariableEval"
+          eType="#//evaluativeStructure/Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="relatedAction" lowerBound="1"
+          eType="#//operationalStructure/EntityAction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="independentVariables"
+          upperBound="-1" eType="#//evaluativeStructure/Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//evaluativeStructure/relationType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="updateValue" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="calculation" eType="#//ontologicalStructure/NaturalLangCondition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="relationType">
+      <eLiterals name="directRelationship" value="1"/>
+      <eLiterals name="indirectRelationship" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EvaluativeStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="evaluation" lowerBound="1"
+          eType="#//evaluativeStructure/Evaluation" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="debugging" lowerBound="1"
+          eType="#//evaluativeStructure/Debugging" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="propertyVariable" upperBound="-1"
+          eType="#//evaluativeStructure/PropertyVariable" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ontologicalVariable"
+          upperBound="-1" eType="#//evaluativeStructure/OntologicalConceptVariable"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="personalValueVariable"
+          upperBound="-1" eType="#//evaluativeStructure/PersonalValueVariable" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Variable" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PropertyVariable" eSuperTypes="#//evaluativeStructure/Variable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//ontologicalStructure/Property"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PersonalValueVariable" eSuperTypes="#//evaluativeStructure/Variable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="personalValue" eType="#//collectiveStructure/PersonalValue"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OntologicalConceptVariable" eSuperTypes="#//evaluativeStructure/Variable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ontolgicalConcept" eType="#//ontologicalStructure/OntologicalConcept"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="constitutionalStructure" nsURI="http://maia/constitutionalStructure/1.0"
+      nsPrefix="constitutionalStruct">
+    <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//operationalStructure/Performer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="objective" lowerBound="1"
+          eType="#//constitutionalStructure/Objective"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="institutionalCapability"
+          upperBound="-1" eType="#//operationalStructure/ActionBody"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="institution" upperBound="-1"
+          eType="#//constitutionalStructure/InstitutionalStatement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="entryCondition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalComponent" upperBound="-1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="information" upperBound="-1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InstitutionalStatement" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+          upperBound="-1" eType="#//constitutionalStructure/Role"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aIm" lowerBound="1" upperBound="-1"
+          eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SharedStrategy" eSuperTypes="#//constitutionalStructure/InstitutionalStatement #//constitutionalStructure/Sanction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Norm" eSuperTypes="#//constitutionalStructure/InstitutionalStatement #//constitutionalStructure/Sanction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="deonticType" lowerBound="1"
+          eType="#//constitutionalStructure/deonLogicType"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//constitutionalStructure/InstitutionalStatement #//constitutionalStructure/Sanction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="deonticType" lowerBound="1"
+          eType="#//constitutionalStructure/deonLogicType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="OrElse" lowerBound="1"
+          upperBound="-1" eType="#//constitutionalStructure/Sanction"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Dependency">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependant" eType="#//constitutionalStructure/Role"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependee" lowerBound="1"
+          eType="#//constitutionalStructure/Role"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependantObjective" lowerBound="1"
+          eType="#//constitutionalStructure/Objective"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Objective">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="meetingCondition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Sanction" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="deonLogicType">
+      <eLiterals name="obliges" literal="obliges"/>
+      <eLiterals name="permits" value="1" literal="permits"/>
+      <eLiterals name="prohibits" value="2" literal="prohibits"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConstitutionalStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="roles" lowerBound="1"
+          upperBound="-1" eType="#//constitutionalStructure/Role" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="institutions" upperBound="-1"
+          eType="#//constitutionalStructure/InstitutionalStatement" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+          eType="#//constitutionalStructure/Dependency" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sanctions" upperBound="-1"
+          eType="#//constitutionalStructure/Sanction" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
+          eType="#//constitutionalStructure/Objective" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="collectiveStructure" nsURI="http://maia/collectiveStructure/1.0"
+      nsPrefix="collectiveStruct">
+    <eClassifiers xsi:type="ecore:EClass" name="Agent" eSuperTypes="#//operationalStructure/Performer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="personalValue" upperBound="-1"
+          eType="#//collectiveStructure/PersonalValue"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="physicalComponent" upperBound="-1"
+          eType="#//physicalStructure/PhysicalComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="possibleRole" lowerBound="1"
+          upperBound="-1" eType="#//constitutionalStructure/Role"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="intrinsicBehaviour" upperBound="-1"
+          eType="#//operationalStructure/ActionBody"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="property" upperBound="-1"
+          eType="#//ontologicalStructure/Property"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="information" upperBound="-1"
+          eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="decision" upperBound="-1"
+          eType="#//collectiveStructure/MCDA"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PersonalValue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="decisionInfluence" lowerBound="1"
+          eType="#//collectiveStructure/DecisionInfluence" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DecisionInfluence">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="limit" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CollectiveStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="agent" lowerBound="1"
+          upperBound="-1" eType="#//collectiveStructure/Agent" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="decisionCriteria" upperBound="-1"
+          eType="#//collectiveStructure/MCDA" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="personalValue" upperBound="-1"
+          eType="#//collectiveStructure/PersonalValue" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MCDA">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="threshold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aspects" lowerBound="1"
+          upperBound="-1" eType="#//collectiveStructure/DecisionCriterion" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DecisionCriterion" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PersonalValueAspect" eSuperTypes="#//collectiveStructure/DecisionCriterion">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="personalValue" lowerBound="1"
+          eType="#//collectiveStructure/PersonalValue"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PropertyAspect" eSuperTypes="#//collectiveStructure/DecisionCriterion">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="property" lowerBound="1"
+          eType="#//ontologicalStructure/Property"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConditionAspect" eSuperTypes="#//collectiveStructure/DecisionCriterion">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SanctionAspect" eSuperTypes="#//collectiveStructure/DecisionCriterion">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sanction" lowerBound="1"
+          eType="#//constitutionalStructure/Sanction"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="fineValue" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="operationalStructure" nsURI="http://maia/operationalStructure/1.0"
+      nsPrefix="operationalStruct">
+    <eClassifiers xsi:type="ecore:EClass" name="ActionBody">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EntityAction" eSuperTypes="#//operationalStructure/Plan">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionBody" lowerBound="1"
+          eType="#//operationalStructure/ActionBody"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
+          upperBound="-1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="preCondition" lowerBound="1"
+          upperBound="-1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="perfomer" lowerBound="1"
+          eType="#//operationalStructure/Performer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="roleEnactment" eType="#//operationalStructure/RoleEnactment"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="decisionMaking" eType="#//collectiveStructure/MCDA"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="institution" upperBound="-1"
+          eType="#//constitutionalStructure/InstitutionalStatement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="postConditionNotDo" lowerBound="1"
+          upperBound="-1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionSituation">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="preCondition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionArena">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionSituation" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/ActionSituation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RoleEnactment">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="role" lowerBound="1"
+          eType="#//constitutionalStructure/Role"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="agent" lowerBound="1"
+          eType="#//collectiveStructure/Agent"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Plan" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlanSequence" eSuperTypes="#//operationalStructure/Plan">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan1" lowerBound="1"
+          eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan2" lowerBound="1"
+          eType="#//operationalStructure/Plan"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlanAlternative" eSuperTypes="#//operationalStructure/Plan">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan1" lowerBound="1"
+          eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan2" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/Plan"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlanLoop" eSuperTypes="#//operationalStructure/Plan">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan" lowerBound="1"
+          eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OperationalStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionPlans" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/Plan" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsituation" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/ActionSituation" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionArena" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/ActionArena" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="roleEnactments" upperBound="-1"
+          eType="#//operationalStructure/RoleEnactment" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionBody" lowerBound="1"
+          upperBound="-1" eType="#//operationalStructure/ActionBody" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Performer">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlanCondition" eSuperTypes="#//operationalStructure/Plan">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="plan" lowerBound="1"
+          eType="#//operationalStructure/Plan"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="ontologicalStructure" nsURI="http://maia/ontologicalStructure/1.0"
+      nsPrefix="ontologicalStructure">
+    <eClassifiers xsi:type="ecore:EClass" name="OntologicalStructure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ontologicalConcepts"
+          upperBound="-1" eType="#//ontologicalStructure/OntologicalConcept" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+          eType="#//ontologicalStructure/Condition" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+          eType="#//ontologicalStructure/Property" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OntologicalConcept">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="URI" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Condition" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LogicalCondition" abstract="true"
+        eSuperTypes="#//ontologicalStructure/Condition"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NaturalLangCondition" eSuperTypes="#//ontologicalStructure/Condition">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="statement" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MathCondition" abstract="true" eSuperTypes="#//ontologicalStructure/Condition"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Negformula" eSuperTypes="#//ontologicalStructure/LogicalCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="conditionStatement" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ORformula" eSuperTypes="#//ontologicalStructure/LogicalCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="leftConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ANDformula" eSuperTypes="#//ontologicalStructure/LogicalCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="leftConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="equalFormula" eSuperTypes="#//ontologicalStructure/MathCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="leftConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="moreEqformula" eSuperTypes="#//ontologicalStructure/MathCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="leftConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="lessformula" eSuperTypes="#//ontologicalStructure/MathCondition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="leftConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightConditionStatement"
+          lowerBound="1" eType="#//ontologicalStructure/Condition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Property" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NumberProperty" eSuperTypes="#//ontologicalStructure/Property">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BooleanProperty" eSuperTypes="#//ontologicalStructure/Property">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StringProperty" eSuperTypes="#//ontologicalStructure/Property">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>
